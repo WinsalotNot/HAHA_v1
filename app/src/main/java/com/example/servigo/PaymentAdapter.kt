@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.servigo.HistoryAdapter.HistoryViewHolder
 
-class PaymentAdapter(private val paymentList : List<paymentData>) : RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder>() {
+class PaymentAdapter(private val paymentList : List<PaymentData>) : RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder>() {
 
     class PaymentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val payitem: TextView = itemView.findViewById(R.id.payItem)
@@ -18,7 +17,7 @@ class PaymentAdapter(private val paymentList : List<paymentData>) : RecyclerView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.payment_list_recycler, parent, false)
+            .inflate(R.layout.payment_list_design, parent, false)
         return PaymentViewHolder(view)
     }
 

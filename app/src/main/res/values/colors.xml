@@ -7,7 +7,8 @@
     <color name="cyan">#33B5E5</color>
     <color name="muted_red">#7B3030</color>
     <color name="dark_red">#7D090A</color>
-    <color name="light_red">#BF3130</color>
+    <color name="brighter_red">#D30F13</color>
+    <color name="light_red">#BE3130</color>
     <color name="bright_orange">#FF5722</color>
     <color name="lighter_red">#A02B2A</color>
     <color name="xp_green">#B5F452</color>

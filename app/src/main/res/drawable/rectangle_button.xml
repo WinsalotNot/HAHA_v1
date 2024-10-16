@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/pressed_topup_btn"
+    <item android:drawable="@drawable/pressed_top_up"
         android:state_pressed="true" />
     <item android:drawable="@drawable/focused_topup_btn"
         android:state_focused="true" />
-    <item android:drawable="@drawable/top_up_btn" />
+    <item android:drawable="@drawable/default_top_up" />
 </selector>
