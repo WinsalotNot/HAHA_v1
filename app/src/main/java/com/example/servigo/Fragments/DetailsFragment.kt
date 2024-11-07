@@ -1,5 +1,6 @@
 package com.example.servigo
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,23 +41,26 @@ class DetailsFragment : Fragment() {
         return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Retrieve arguments passed via the navigation graph
+        val title = arguments?.getString("title")
+        val description = arguments?.getString("description")
+        val date = arguments?.getString("date")
+        val minStar = arguments?.getString("min_star")
+        val requestedRank = arguments?.getString("requested_rank")
+        val payment = arguments?.getString("payment")
+        val howMuch = arguments?.getString("how_much")
+        val address = arguments?.getString("address")
+
+        // Set data to views in the fragment layout
+        view.findViewById<TextView>(R.id.textView6).text = title
+        view.findViewById<TextView>(R.id.aboutdesc).text = description
+        view.findViewById<TextView>(R.id.textView9).text = "$minStar ($requestedRank)"
+        view.findViewById<TextView>(R.id.textView5).text = payment
+        view.findViewById<TextView>(R.id.textView10).text = howMuch
+        view.findViewById<TextView>(R.id.textView7).text = address
     }
 }

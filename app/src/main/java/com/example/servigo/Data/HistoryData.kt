@@ -1,6 +1,6 @@
 package com.example.servigo
 
-data class HistoryItem(
+data class HistoryData(
     val name: String,
     val title: String,
     val description: String,

@@ -9,7 +9,41 @@
         android:id="@+id/jobListFragment"
         android:name="com.example.servigo.JobListFragment"
         android:label="fragment_job_list"
-        tools:layout="@layout/fragment_job_list" />
+        tools:layout="@layout/fragment_job_list" >
+        <action
+            android:id="@+id/action_jobListFragment_to_detailsFragment2"
+            app:destination="@id/detailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment2"
+        android:name="com.example.servigo.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="min_star"
+            app:argType="string" />
+        <argument
+            android:name="requested_rank"
+            app:argType="string" />
+        <argument
+            android:name="payment"
+            app:argType="string" />
+        <argument
+            android:name="how_much"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/serviceListFragment"
         android:name="com.example.servigo.ServiceListFragment"
