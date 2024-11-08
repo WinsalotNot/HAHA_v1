@@ -37,8 +37,8 @@ class TransactionHistoryFragment : Fragment() {
 
         // Sample data for RecyclerView (you can replace this with your dynamic data)
         val historyList = listOf(
-            HistoryItem("Hasanudin Alibama", "Professional House Keeper", "Job Description: Clean House", "17/12/24", "Rp.502.500,00", "5/5", "5/5", "S"),
-            HistoryItem("Jane Doe", "Professional Electrician", "Job Description: Safe Wires", "17/11/24", "Rp.600.500,00", "4.5/5", "3/5", "A")
+            HistoryData("Hasanudin Alibama", "Professional House Keeper", "Job Description: Clean House", "17/12/24", "Rp.502.500,00", "5/5", "5/5", "S"),
+            HistoryData("Jane Doe", "Professional Electrician", "Job Description: Safe Wires", "17/11/24", "Rp.600.500,00", "4.5/5", "3/5", "A")
             // Add more items as needed
         )
 

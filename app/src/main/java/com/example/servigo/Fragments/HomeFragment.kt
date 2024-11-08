@@ -9,6 +9,8 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 
 private const val ARG_PARAM1 = "param1"
@@ -63,52 +65,6 @@ class HomeFragment : Fragment() {
         }
 
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        tabLayout = view.findViewById(R.id.tabLayout1)
-
-        // Ensure fragmentContainerView contains a NavHostFragment
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerView7) as? NavHostFragment
-        navController = navHostFragment?.navController ?: return  // Safely get NavController
-
-        // Add tabs to TabLayout
-        tabLayout.addTab(tabLayout.newTab().setText("Service"))
-        tabLayout.addTab(tabLayout.newTab().setText("Job"))
-
-        // Retrieve the saved tab position (if any)
-        val savedTabIndex = savedInstanceState?.getInt("selectedTabIndex", 0) ?: 0
-        tabLayout.getTabAt(savedTabIndex)?.select()
-
-        // Set up TabLayout with NavController
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        if (navController.currentDestination?.id != R.id.serviceListFragment) {
-                            navController.navigate(R.id.serviceListFragment)
-                        }
-                    }
-                    1 -> {
-                        if (navController.currentDestination?.id != R.id.jobListFragment) {
-                            navController.navigate(R.id.jobListFragment)
-                        }
-                    }
-                }
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
-        // Listen for navigation changes to update TabLayout selection
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.serviceListFragment -> tabLayout.selectTab(tabLayout.getTabAt(0))
-                R.id.jobListFragment -> tabLayout.selectTab(tabLayout.getTabAt(1))
-                // Add any other fragments here if necessary
-            }
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

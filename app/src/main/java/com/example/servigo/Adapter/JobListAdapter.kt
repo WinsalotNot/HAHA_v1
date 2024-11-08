@@ -1,9 +1,12 @@
 package com.example.servigo
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 class JobListAdapter(private val jobList: List<JobListData>) : RecyclerView.Adapter<JobListAdapter.JobListViewHolder>() {
@@ -35,6 +38,30 @@ class JobListAdapter(private val jobList: List<JobListData>) : RecyclerView.Adap
         holder.jpaymentTextView.text = jobItem.payment
         holder.jhowmuchTextView.text = jobItem.how_much
         holder.jaddressTextView.text = jobItem.address
+
+        // Set click listener to navigate to details fragment
+        holder.itemView.setOnClickListener { view ->
+            // Create a bundle with job details
+            val bundle = Bundle().apply {
+                putString("title", jobItem.title)
+                putString("description", jobItem.description)
+                putString("date", jobItem.date)
+                putString("min_star", jobItem.min_star)
+                putString("requested_rank", jobItem.requested_rank)
+                putString("payment", jobItem.payment)
+                putString("how_much", jobItem.how_much)
+                putString("address", jobItem.address)
+            }
+
+            // Use the action generated from the navigation graph
+            // Make sure the navController is correctly set from the view context
+            try {
+                view.findNavController().navigate(R.id.action_jobListFragment_to_detailsFragment2, bundle)
+            } catch (e: Exception) {
+                // Log any navigation errors
+                Log.e("JobListAdapter", "Navigation error: ${e.message}")
+            }
+        }
     }
 
     override fun getItemCount() = jobList.size

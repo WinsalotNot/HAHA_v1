@@ -1,6 +1,5 @@
 package com.example.servigo
 
-import android.app.job.JobService
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,10 +15,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [JobListFragment.newInstance] factory method to
+ * Use the [ServiceListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class JobListFragment : Fragment() {
+class ServiceListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,26 +36,26 @@ class JobListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job_list, container, false)
+        return inflater.inflate(R.layout.fragment_service_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Find the RecyclerView in the inflated view
-        val recyclerView: RecyclerView = view.findViewById(R.id.job_list)
+        val recyclerView: RecyclerView = view.findViewById(R.id.service_list)
 
         // Set up LayoutManager (LinearLayoutManager for vertical scrolling)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Sample data for RecyclerView (you can replace this with your dynamic data)
-        val jobList = listOf(
-            JobListData("Someone who would do chores", "You will work for 5 days a week", "01/01/2025-30/01/2025", "B", "Paid Per Week", "Rp.500.000,00", "3/5", "Jakarta Barat"),
-            JobListData("Someone who would tutor", "You will work for 3 days a week", "01/01/2025-30/06/2025", "A", "Paid Per Month", "Rp.5.000.000,00", "4/5", "Jakarta Selatan")
+        val historyList = listOf(
+            HistoryData("Hasanudin Alibama", "Professional House Keeper", "Job Description: Clean House", "17/12/24", "Rp.502.500,00", "5/5", "5/5", "S"),
+            HistoryData("Jane Doe", "Professional Electrician", "Job Description: Safe Wires", "17/11/24", "Rp.600.500,00", "4.5/5", "3/5", "A")
             // Add more items as needed
         )
 
         // Set up the adapter
-        recyclerView.adapter = JobListAdapter(jobList)
+        recyclerView.adapter = HistoryAdapter(historyList)
     }
 }

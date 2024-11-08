@@ -10,20 +10,10 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/detailsFragment2"
-        android:name="com.example.servigo.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_detail" />
-    <fragment
         android:id="@+id/transactionHistory"
         android:name="com.example.servigo.TransactionHistoryFragment"
         android:label="fragment_transaction_history"
         tools:layout="@layout/fragment_transaction_history" />
-    <fragment
-        android:id="@+id/profilePage"
-        android:name="com.example.servigo.ProfileFragment"
-        android:label="fragment_profile_page"
-        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/ranking_page"
         android:name="com.example.servigo.LeaderboardFragment"
