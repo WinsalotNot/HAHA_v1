@@ -105,7 +105,7 @@
     <string name="test2">This is Job</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<!--    category spinner-->
+    <!--    category spinner-->
     <string-array name="categories">
         <item>Select Category:</item>
         <item>Cleaning</item>
@@ -130,7 +130,7 @@
         <item>Anything</item>
     </string-array>
 
-<!--    ranking spinner-->
+    <!--    ranking spinner-->
     <string-array name="ranks">
         <item>Select Rank:</item>
         <item>S</item>
@@ -139,5 +139,14 @@
         <item>C</item>
         <item>D</item>
         <item>E</item>
+    </string-array>
+
+    <string-array name="location">
+        <item>Select Location:</item>
+        <item>Jakarta Pusat</item>
+        <item>Jakarta Barat</item>
+        <item>Jakarta Timur</item>
+        <item>Jakarta Selatan</item>
+        <item>Jakarta Utara</item>
     </string-array>
 </resources>

@@ -34,4 +34,9 @@
         android:name="com.example.servigo.signupPage"
         android:label="fragment_signup_page"
         tools:layout="@layout/fragment_signup_page" />
+    <fragment
+        android:id="@+id/explorePage"
+        android:name="com.example.servigo.explorePage"
+        android:label="fragment_explore_page"
+        tools:layout="@layout/fragment_explore_page" />
 </navigation>
