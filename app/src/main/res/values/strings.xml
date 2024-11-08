@@ -104,4 +104,40 @@
     <string name="test1">This is Service</string>
     <string name="test2">This is Job</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+<!--    category spinner-->
+    <string-array name="categories">
+        <item>Select Category:</item>
+        <item>Cleaning</item>
+        <item>Electrical</item>
+        <item>Plumbing</item>
+        <item>Repairs</item>
+        <item>Moving</item>
+        <item>Painting</item>
+        <item>Assembly</item>
+        <item>Gardening</item>
+        <item>Pest Control</item>
+        <item>Pet Care</item>
+        <item>Childcare</item>
+        <item>Senior Care</item>
+        <item>Handyman</item>
+        <item>Errands</item>
+        <item>Car Care</item>
+        <item>Tutoring</item>
+        <item>Event Help</item>
+        <item>Laundry</item>
+        <item>Labor</item>
+        <item>Anything</item>
+    </string-array>
+
+<!--    ranking spinner-->
+    <string-array name="ranks">
+        <item>Select Rank:</item>
+        <item>S</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+    </string-array>
 </resources>

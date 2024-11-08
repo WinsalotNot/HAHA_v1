@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -50,12 +54,75 @@ class LeaderboardFragment : Fragment() {
 
         // Sample data for RecyclerView (you can replace this with your dynamic data)
         val rankingList = listOf(
-            RankingData("Hasanudin Alibama", "Professional House Keeper", "A hard working house keeper that will ensure the cleanliness of the house. You can come home at ease!", "S", "4.5/5", "(1500 reviews)"),
-            RankingData("Jane Doe", "Professional Electrician", "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!", "A", "2.5/5", "(450 reviews)")
+            RankingData(
+                "Hasanudin Alibama",
+                "Professional House Keeper",
+                "A hard working house keeper that will ensure the cleanliness of the house. You can come home at ease!",
+                "S",
+                "4.5/5",
+                "(1500 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
+            )
             // Add more items as needed
         )
 
         // Set up the adapter
         recyclerView.adapter = RankingAdapter(rankingList)
+
+        val categorySpinner: Spinner = view.findViewById(R.id.categorySpinner)
+        categorySpinner.visibility = View.VISIBLE
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.categories,
+            R.layout.spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            categorySpinner.adapter = adapter
+        }
+
+        // Set up the rankSpinner
+        val rankSpinner: Spinner = view.findViewById(R.id.rankSpinner)
+        rankSpinner.visibility = View.VISIBLE
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.ranks,
+            R.layout.spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            rankSpinner.adapter = adapter
+        }
+
+        // Handle selection for categorySpinner
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedCategory = parent.getItemAtPosition(position).toString()
+                Toast.makeText(context, "Selected Category: $selectedCategory", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+
+        // Handle selection for rankSpinner
+        rankSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedRank = parent.getItemAtPosition(position).toString()
+                Toast.makeText(context, "Selected Rank: $selectedRank", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+
+        }
     }
-}

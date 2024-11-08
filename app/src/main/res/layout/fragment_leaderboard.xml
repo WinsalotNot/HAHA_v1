@@ -4,137 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1ECC6"
+    android:background="#FFFFFF"
     tools:context=".LeaderboardFragment">
 
-    <!-- ranking options tab -->
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#FDFDFD"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!-- Leaderboard Text -->
-
+        android:layout_height="match_parent">
+        <!-- ranking options tab -->
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:background="#FDFDFD"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/crown" />
+            <!-- Leaderboard Text -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="LEADERBOARDS"
-                android:textColor="#000000"
-                android:textSize="42sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/crown" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <!-- row buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginVertical="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
+            <!-- Category Spinner Container -->
+            <LinearLayout
+                android:id="@+id/categoryContainer"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
                 android:background="@drawable/red_rounded_corners"
-                android:text="S"
-                android:textColor="#FDBF07"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/red_rounded_corners"
-                android:text="A"
-                android:textColor="#FDBF07"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/categorySpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null" />
+            </LinearLayout>
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
+            <!-- Rank Spinner Container -->
+            <LinearLayout
+                android:id="@+id/ratingContainer"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
                 android:background="@drawable/red_rounded_corners"
-                android:text="B"
-                android:textColor="#FDBF07"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+
+                <Spinner
+                    android:id="@+id/rankSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginVertical="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/red_rounded_corners"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            app:layout_constraintVertical_bias="0.0">
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/red_rounded_corners"
-                android:text="S"
-                android:textColor="#FDBF07"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/red_rounded_corners"
-                android:text="A"
-                android:textColor="#FDBF07"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/red_rounded_corners"
-                android:text="B"
-                android:textColor="#FDBF07"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+            <!-- RecyclerView for Leaderboard -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/leaderboard_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/leaderboard_recyclerView"
-        android:paddingTop="200dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

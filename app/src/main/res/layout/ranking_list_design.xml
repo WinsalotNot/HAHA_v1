@@ -9,12 +9,14 @@
     android:padding="10dp">
 
         <ImageView
-            android:layout_width="120dp"
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
             android:layout_height="wrap_content"
             android:src="@drawable/profile" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginVertical="10dp"
             android:orientation="vertical">
@@ -49,7 +51,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
