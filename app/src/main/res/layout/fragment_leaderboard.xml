@@ -26,8 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="60dp"
@@ -41,8 +40,8 @@
                 android:id="@+id/categoryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
                 android:background="@drawable/red_rounded_corners"
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp">
@@ -61,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/red_rounded_corners"
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp">
@@ -80,12 +79,12 @@
             android:layout_width="371dp"
             android:layout_height="550dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/red_rounded_corners"
             android:orientation="vertical"
             android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
             app:layout_constraintVertical_bias="0.0">

@@ -70,6 +70,38 @@ class explorePage : Fragment() {
                 "A",
                 "2.5/5",
                 "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
             )
             // Add more items as needed
         )

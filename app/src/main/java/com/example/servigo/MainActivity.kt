@@ -64,9 +64,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             val fragment: Fragment = when (item.itemId) {
-                R.id.explorePage -> explorePage()
+                R.id.homeFragment2 -> HomeFragment()
                 R.id.ranking_page -> LeaderboardFragment()
-                else -> explorePage()
+                R.id.transactionHistory -> TransactionHistoryFragment()
+                else -> HomeFragment()
             }
             supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, fragment)

@@ -181,9 +181,9 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.example.servigo.JobListFragment"
+                android:name="com.example.servigo.explorePage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp" />
         </androidx.core.widget.NestedScrollView>
 
         <TextView
