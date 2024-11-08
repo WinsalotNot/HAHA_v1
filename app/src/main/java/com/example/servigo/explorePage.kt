@@ -1,6 +1,7 @@
 package com.example.servigo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -88,20 +89,8 @@ class explorePage : Fragment() {
             locationSpinner.adapter = adapter
         }
 
-        // Handle selection for categorySpinner
-        locationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedLocation = parent.getItemAtPosition(position).toString()
-                Toast.makeText(context, "Selected Location: $selectedLocation", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing
-            }
-        }
-
         // Set up the rankSpinner
-        val rankSpinner: Spinner = view.findViewById(R.id.rankSpinner)
+        val rankSpinner: Spinner = view.findViewById(R.id.ratingSpinner)
         rankSpinner.visibility = View.VISIBLE
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -111,18 +100,13 @@ class explorePage : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             rankSpinner.adapter = adapter
         }
+    }
 
-        // Handle selection for rankSpinner
-        rankSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedRank = parent.getItemAtPosition(position).toString()
-                Toast.makeText(context, "Selected Rank: $selectedRank", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing
-            }
-        }
-
+    override fun onResume() {
+        super.onResume()
+        // Reset any UI elements or data that need to be refreshed when returning to this fragment
+        (view?.findViewById<RecyclerView>(R.id.explore_recyclerView))?.scrollToPosition(0)
+        (view?.findViewById<Spinner>(R.id.locationSpinner))?.setSelection(0)
+        // Add more resets as necessary
     }
 }

@@ -38,6 +38,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/rounded_corners"
@@ -62,6 +63,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/rounded_corners"
@@ -86,6 +88,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etRePassword"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/rounded_corners"
@@ -105,12 +108,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btnSignup"
             android:layout_width="140dp"
             android:layout_height="37dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/red_rounded_corners"
-            android:text="Continue"
+            android:text="SIGN UP"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textStyle="normal"

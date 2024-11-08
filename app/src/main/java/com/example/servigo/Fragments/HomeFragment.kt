@@ -19,8 +19,6 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var tabLayout: TabLayout
-    private lateinit var navController: NavController
     private var drawerToggleListener: OnDrawerToggleListener? = null
 
     // Define an interface for communication with the activity
@@ -65,12 +63,6 @@ class HomeFragment : Fragment() {
         }
 
         return view
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // Save the selected tab index
-        outState.putInt("selectedTabIndex", tabLayout.selectedTabPosition)
     }
 
 }

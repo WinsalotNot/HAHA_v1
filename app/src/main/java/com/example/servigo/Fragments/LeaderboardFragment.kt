@@ -1,6 +1,7 @@
 package com.example.servigo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,13 +70,46 @@ class LeaderboardFragment : Fragment() {
                 "A",
                 "2.5/5",
                 "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
+            ),
+            RankingData(
+                "Jane Doe",
+                "Professional Electrician",
+                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
+                "A",
+                "2.5/5",
+                "(450 reviews)"
             )
             // Add more items as needed
         )
-
         // Set up the adapter
         recyclerView.adapter = RankingAdapter(rankingList)
 
+
+        // Set up the categorySpinner
         val categorySpinner: Spinner = view.findViewById(R.id.categorySpinner)
         categorySpinner.visibility = View.VISIBLE
 
@@ -91,6 +125,7 @@ class LeaderboardFragment : Fragment() {
         // Set up the rankSpinner
         val rankSpinner: Spinner = view.findViewById(R.id.rankSpinner)
         rankSpinner.visibility = View.VISIBLE
+
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.ranks,
@@ -99,30 +134,5 @@ class LeaderboardFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             rankSpinner.adapter = adapter
         }
-
-        // Handle selection for categorySpinner
-        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedCategory = parent.getItemAtPosition(position).toString()
-                Toast.makeText(context, "Selected Category: $selectedCategory", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing
-            }
-        }
-
-        // Handle selection for rankSpinner
-        rankSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedRank = parent.getItemAtPosition(position).toString()
-                Toast.makeText(context, "Selected Rank: $selectedRank", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing
-            }
-        }
-
-        }
     }
+}

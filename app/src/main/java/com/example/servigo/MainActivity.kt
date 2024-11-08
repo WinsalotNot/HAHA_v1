@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -60,6 +61,24 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         // Setup BottomNavigationView with NavController
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            val fragment: Fragment = when (item.itemId) {
+                R.id.explorePage -> explorePage()
+                R.id.ranking_page -> LeaderboardFragment()
+                else -> explorePage()
+            }
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment)
+                .addToBackStack(null) // Optional: maintains back stack behavior
+                .commit()
+            true
+        }
+
+        bottomNavigationView.setOnItemReselectedListener { item ->
+            // Handle re-selection to avoid creating multiple instances
+            navController.popBackStack(item.itemId, false)
+        }
 
         // Handle window insets for immersive UI
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
