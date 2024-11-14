@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -28,37 +29,29 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
 
-        // Set up the navigation item click listener
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    // Handle home action
-                    true
-                }
-                R.id.nav_profile -> {
-                    // Handle profile action
-                    true
-                }
-                R.id.nav_settings -> {
-                    // Handle settings action
-                    true
-                }
-                else -> false
-            }
-        }
-
-        // Add the toggle button to open/close the drawer
         val actionBarDrawerToggle = ActionBarDrawerToggle(
             this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        // Find the NavController from NavHostFragment
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController: NavController = navHostFragment.navController
 
-        // Setup BottomNavigationView with NavController
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            val fragment: Fragment = when (menuItem.itemId) {
+                R.id.transactionHistoryDrawer -> TransactionHistoryFragment()
+                else -> HomeFragment()
+            }
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE) // Clear back stack
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment)
+                .commit()
+
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
@@ -69,19 +62,13 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                 R.id.transactionHistory -> TransactionHistoryFragment()
                 else -> HomeFragment()
             }
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE) // Clear back stack
             supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, fragment)
-                .addToBackStack(null) // Optional: maintains back stack behavior
                 .commit()
             true
         }
 
-        bottomNavigationView.setOnItemReselectedListener { item ->
-            // Handle re-selection to avoid creating multiple instances
-            navController.popBackStack(item.itemId, false)
-        }
-
-        // Handle window insets for immersive UI
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -89,7 +76,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         }
     }
 
-    // Implement the interface method to toggle the drawer
     override fun onDrawerToggle() {
         if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.openDrawer(GravityCompat.START)
