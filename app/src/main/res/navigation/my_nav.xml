@@ -39,4 +39,9 @@
         android:name="com.example.servigo.explorePage"
         android:label="fragment_explore_page"
         tools:layout="@layout/fragment_explore_page" />
+    <fragment
+        android:id="@+id/topupPage"
+        android:name="com.example.servigo.TopupPage"
+        android:label="fragment_topup_page"
+        tools:layout="@layout/fragment_topup_page" />
 </navigation>
