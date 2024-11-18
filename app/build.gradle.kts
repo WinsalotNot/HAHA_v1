@@ -44,15 +44,20 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     // Retrofit and Gson Converter
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    testImplementation(libs.junit)
+    // Testing Dependencies
+    testImplementation(libs.junit) // JUnit for unit testing
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //For Testing
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Payment Gateway = Midtrans
+    implementation(libs.uikit)
 }

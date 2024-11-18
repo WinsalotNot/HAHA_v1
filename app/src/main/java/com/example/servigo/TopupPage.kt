@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,8 +39,44 @@ class TopupPage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_topup_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_topup_page, container, false)
+
+        val topup_confirm_button = view.findViewById<Button>(R.id.topup_confirm)
+        val amount_input = view.findViewById<EditText>(R.id.amount)
+
+        val inputted = amount_input.toString()
+        topup_confirm_button.setOnClickListener{
+            if (inputted.isEmpty()) {
+                amount_input.error = "Please Enter an Amount"
+            } else if (inputted.toDoubleOrNull() == null) {
+                amount_input.error = "Please Enter A Number"
+            }else {
+                // The input is a valid number
+                val amount_to_topup = inputted.toDouble()
+//                startPaymentFlow()
+            }
+        }
+        return view
     }
+
+//    private fun startPaymentFlow() {
+//        SdkUIFlowBuilder.init()
+//            .setClientKey("SB-Mid-client-QrtMd37smh-W08Ry") // Your client key from Midtrans dashboard
+//            .setContext(requireContext()) // Context of the fragment or activity
+//            .setMerchantBaseUrl("https://YOUR_MERCHANT_BASE_URL/") // Your server base URL
+//            .setTransactionFinishedCallback { result ->
+//                // Handle transaction result here, such as success or failure
+//                if (result.isTransactionSuccessful) {
+//                    // Handle successful transaction (e.g., show success message, update UI)
+//                    Toast.makeText(requireContext(), "Transaction Successful", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    // Handle failed transaction (e.g., show error message, update UI)
+//                    Toast.makeText(requireContext(), "Transaction Failed", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//            .enableLog(true) // Optional: Enable logs for debugging
+//            .buildSDK() // This will open the Midtrans UI flow
+//    }
 
     companion object {
         /**

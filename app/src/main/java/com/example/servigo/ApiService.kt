@@ -7,6 +7,12 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiService {
-    @POST("registerUser") // Replace with the actual path on your server
+
+    // Register user
+    @POST("api/registerUser")
     suspend fun registerUser(@Body user: User): Response<ApiResponse>
+
+    // Login user
+    @POST("api/login")
+    suspend fun loginUser(@Body user: User): Response<ApiResponse>
 }

@@ -1,6 +1,7 @@
 package com.example.servigo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,35 +10,21 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.servigo.Data.ApiResponse
 import com.example.servigo.Data.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [signupPage.newInstance] factory method to
- * create an instance of this fragment.
- */
 class signupPage : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var apiService: ApiService
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,52 +50,61 @@ class signupPage : Fragment() {
             val checkPassword = view.findViewById<EditText>(R.id.etRePassword).text.toString()
             val email = etEmail.text.toString()
 
-            // Validate input
-            if (password.isNotBlank() && email.isNotBlank() && password == checkPassword) {
-                registerUser(password, email)
+            if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                // Valid email address
+                // Validate input
+                if (isPasswordValid(password)) {
+                    if (password.isNotBlank() && password == checkPassword) {
+                        registerUser(email, password)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Please Make Sure Passwords Are Filled AND Matched!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Password Requirements NOT FULFILLED", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(requireContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show()
+                // Invalid email address
+                Toast.makeText(requireContext(), "Please Input Email ONLY!", Toast.LENGTH_SHORT).show()
             }
         }
 
         return view
     }
 
-    private fun registerUser(password: String, email: String) {
-        val user = User(password, email)
-
-        // Use a coroutine to make the network request
-        lifecycleScope.launch {
-            try {
-                val response = apiService.registerUser(user)
-                if (response.isSuccessful && response.body()?.success == true) {
-                    Toast.makeText(requireContext(), "Signup successful!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), response.body()?.message ?: "Signup failed", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun isPasswordValid(password: String): Boolean {
+        val passwordRegex = "^(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9]{8,16}$"
+        return password.matches(passwordRegex.toRegex())
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment signupPage.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            signupPage().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun registerUser(email: String, password: String) {
+        val user = User(email, password)
+
+
+        // Launch a coroutine to make the API call
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitInstance.apiService.registerUser(user)
+
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(context, "User registered successfully!", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_signupPage_to_loginPage)
+                    } else {
+                        Toast.makeText(context, "Registration failed: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("LoginError", "An error occurred: ${e.message}", e)
+                    Toast.makeText(context, "Error: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
     }
 }

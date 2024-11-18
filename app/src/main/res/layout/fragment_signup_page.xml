@@ -12,15 +12,17 @@
         android:background="#FFFFFF">
 
         <LinearLayout
+            android:id="@+id/linearLayout7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_height="500dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="52dp"
             android:background="@drawable/red_rounded_corners"
             android:orientation="vertical"
             android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/imageView9">
 
             <!--         email phone no input -->
             <LinearLayout
@@ -33,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Enter Email / Phone Number"
+                    android:text="Enter Email"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp" />
 
@@ -43,7 +45,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/rounded_corners"
                     android:hint="Email"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     android:padding="10dp" />
 
             </LinearLayout>
@@ -102,7 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Password requires atleast\n• 8 Characters\n• Onw capital letter (A-Z)\n• One number (1-9)"
+                android:text="Password Requires AT LEAST\n• 8 Characters\n• One capital letter\n• One number
+                \nMAX CHARACTERS: 16\nONLY ALPHABETS (a/A-z/Z) and NUMBERS (0-9)"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -111,15 +114,36 @@
             android:id="@+id/btnSignup"
             android:layout_width="140dp"
             android:layout_height="37dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/red_rounded_corners"
             android:text="SIGN UP"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/imageView12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/red_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/red_rectangle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

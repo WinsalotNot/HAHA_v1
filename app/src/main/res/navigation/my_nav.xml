@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/loginPage">
     <fragment
         android:id="@+id/homeFragment2"
         android:name="com.example.servigo.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment2_to_topupPage"
+            app:destination="@id/topupPage" />
+    </fragment>
     <fragment
         android:id="@+id/transactionHistory"
         android:name="com.example.servigo.TransactionHistoryFragment"
@@ -28,12 +32,23 @@
         android:id="@+id/loginPage"
         android:name="com.example.servigo.loginPage"
         android:label="fragment_login_page"
-        tools:layout="@layout/fragment_login_page" />
+        tools:layout="@layout/fragment_login_page" >
+        <action
+            android:id="@+id/action_loginPage_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+        <action
+            android:id="@+id/action_loginPage_to_signupPage"
+            app:destination="@id/signupPage" />
+    </fragment>
     <fragment
         android:id="@+id/signupPage"
         android:name="com.example.servigo.signupPage"
         android:label="fragment_signup_page"
-        tools:layout="@layout/fragment_signup_page" />
+        tools:layout="@layout/fragment_signup_page" >
+        <action
+            android:id="@+id/action_signupPage_to_loginPage"
+            app:destination="@id/loginPage" />
+    </fragment>
     <fragment
         android:id="@+id/explorePage"
         android:name="com.example.servigo.explorePage"

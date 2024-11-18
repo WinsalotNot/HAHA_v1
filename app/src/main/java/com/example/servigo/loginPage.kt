@@ -1,10 +1,23 @@
 package com.example.servigo
 
 import android.os.Bundle
+import android.telecom.Call
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.servigo.Data.ApiResponse
+import com.example.servigo.Data.User
+import com.example.servigo.RetrofitInstance.apiService
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,43 +30,72 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class loginPage : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var loginButton: Button
+    private lateinit var signup_text_click: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_login_page, container, false)
+
+        // Initialize views
+        emailEditText = view.findViewById(R.id.emailInput)
+        passwordEditText = view.findViewById(R.id.passwordInput)
+        loginButton = view.findViewById(R.id.loginButton)
+        signup_text_click = view.findViewById(R.id.signupclick)
+
+        // Set up login button click listener
+        loginButton.setOnClickListener {
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            // Call the login function
+            loginUser(email, password)
+        }
+
+        signup_text_click.setOnClickListener {
+            findNavController().navigate(R.id.action_loginPage_to_signupPage)
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment loginPage.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            loginPage().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun loginUser(email: String, password: String) {
+        // Create a User object with email and password
+        val user = User(email, password)
+
+        // Launch coroutine to call the login API
+        lifecycleScope.launch {
+            try {
+                // Call the loginUser API method
+                val response: Response<ApiResponse> = apiService.loginUser(user)
+
+                // Check if the response is successful
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null && responseBody.success) {
+                        // Login successful
+                        Toast.makeText(requireContext(), "Login Successful!", Toast.LENGTH_SHORT).show()
+
+                        // Navigate to HomeFragment on success
+                        findNavController().navigate(R.id.action_loginPage_to_homeFragment2)
+                    } else {
+                        // Handle login failure
+                        Toast.makeText(requireContext(), "Login Failed: ${responseBody?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // Handle unsuccessful response (non-2xx status code)
+                    Toast.makeText(requireContext(), "Login Failed: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
+            } catch (e: Exception) {
+                // Handle exception
+                Toast.makeText(requireContext(), "An error occurred: ${e.message}", Toast.LENGTH_LONG).show()
+                Log.e("LoginError", "An error occurred: ${e.message}", e)
             }
+        }
     }
 }

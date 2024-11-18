@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:title="Edit Porfile"/>
+        android:title="Edit Porfile" />
     <item
         android:id="@+id/nav_profile"
         android:title="Payment Options"/>
@@ -22,6 +22,6 @@
         android:id="@+id/nav_settings"
         android:title="Privacy and Security"/>
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/logoutDrawer"
         android:title="Log Out"/>
 </menu>

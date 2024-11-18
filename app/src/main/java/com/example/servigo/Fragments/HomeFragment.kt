@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
@@ -60,6 +62,11 @@ class HomeFragment : Fragment() {
         val drawerTrigger: ImageView = view.findViewById(R.id.accountImageView)
         drawerTrigger.setOnClickListener {
             drawerToggleListener?.onDrawerToggle() // Call the interface method to toggle the drawer
+        }
+
+        val topup_button = view.findViewById<Button>(R.id.buttontopup)
+        topup_button.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment2_to_topupPage)
         }
 
         return view
