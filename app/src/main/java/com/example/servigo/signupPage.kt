@@ -33,14 +33,6 @@ class signupPage : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_signup_page, container, false)
 
-        // Initialize Retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://your-server-url.com/") // Replace with your server URL
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        apiService = retrofit.create(ApiService::class.java)
-
         val etPassword = view.findViewById<EditText>(R.id.etPassword)
         val etEmail = view.findViewById<EditText>(R.id.etEmail)
         val btnSignup = view.findViewById<Button>(R.id.btnSignup)

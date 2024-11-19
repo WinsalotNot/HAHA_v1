@@ -15,10 +15,12 @@
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="170dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/red_rounded_corners"
             android:orientation="vertical"
             android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -55,12 +57,13 @@
             android:id="@+id/searchContainer"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/red_rounded_corners"
             android:orientation="horizontal"
             android:paddingHorizontal="20dp"
             android:paddingVertical="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20">
 
@@ -69,11 +72,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.12"
+                android:gravity="center"
                 android:text="Rp. "
-                android:textSize="16sp"
-                android:textColor="@color/white"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/amount"
@@ -93,10 +96,10 @@
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="48dp"
             android:text="Enter top-up amount (Rupiah)"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.128"
+            app:layout_constraintHorizontal_bias="0.101"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
@@ -104,16 +107,15 @@
             android:id="@+id/topup_confirm"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="96dp"
             android:background="@drawable/red_rounded_corners"
             android:text="Confirm Top-Up"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchContainer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -9,11 +9,11 @@
         android:icon="@drawable/ic_transac"
         android:title="Transaction" />
     <item
-        android:id="@+id/chatFragment"
-        android:icon="@drawable/ic_chat"
-        android:title="Messages" />
-    <item
-        android:id="@+id/ranking_page"
+        android:id="@+id/leaderboardFragment"
         android:icon="@drawable/ic_leader"
         android:title="Leaderboard" />
+    <item
+        android:id="@+id/accountFragment"
+        android:icon="@drawable/ic_account_bottomnav"
+        android:title="Account" />
 </menu>

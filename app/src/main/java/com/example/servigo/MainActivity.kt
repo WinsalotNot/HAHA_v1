@@ -2,6 +2,7 @@ package com.example.servigo
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment2 -> navController.navigate(R.id.homeFragment2)
-                R.id.ranking_page -> navController.navigate(R.id.ranking_page)
+                R.id.leaderboardFragment -> navController.navigate(R.id.ranking_page)
                 R.id.transactionHistory -> navController.navigate(R.id.transactionHistory)
             }
             true
