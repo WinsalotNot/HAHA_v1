@@ -1,7 +1,7 @@
 package com.example.servigo
 
+import android.content.Context
 import android.os.Bundle
-import android.telecom.Call
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,22 +19,12 @@ import com.example.servigo.RetrofitInstance.apiService
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [loginPage.newInstance] factory method to
- * create an instance of this fragment.
- */
-class loginPage : Fragment() {
+class LoginFragment : Fragment() {
 
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
-    private lateinit var signup_text_click: TextView
+    private lateinit var signupTextClick: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +36,7 @@ class loginPage : Fragment() {
         emailEditText = view.findViewById(R.id.emailInput)
         passwordEditText = view.findViewById(R.id.passwordInput)
         loginButton = view.findViewById(R.id.loginButton)
-        signup_text_click = view.findViewById(R.id.signupclick)
+        signupTextClick = view.findViewById(R.id.signupclick)
 
         // Set up login button click listener
         loginButton.setOnClickListener {
@@ -57,11 +47,19 @@ class loginPage : Fragment() {
             loginUser(email, password)
         }
 
-        signup_text_click.setOnClickListener {
+        signupTextClick.setOnClickListener {
             findNavController().navigate(R.id.action_loginPage_to_signupPage)
         }
 
         return view
+    }
+
+    // Function to save the user ID
+    private fun saveUserId(userid: Int) {
+        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("USER_ID", userid.toString()) // Save userId
+        editor.apply()
     }
 
     private fun loginUser(email: String, password: String) {
@@ -79,6 +77,12 @@ class loginPage : Fragment() {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.success) {
                         // Login successful
+                        val userId = responseBody.userId // Assuming the user ID is part of the response
+
+                        // Save the user ID in SharedPreferences
+                        saveUserId(userId)
+
+                        // Display success message
                         Toast.makeText(requireContext(), "Login Successful!", Toast.LENGTH_SHORT).show()
 
                         // Navigate to HomeFragment on success
@@ -98,4 +102,5 @@ class loginPage : Fragment() {
             }
         }
     }
+
 }

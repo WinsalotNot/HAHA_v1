@@ -33,7 +33,7 @@
         tools:layout="@layout/fragment_payment_page" />
     <fragment
         android:id="@+id/loginPage"
-        android:name="com.example.servigo.loginPage"
+        android:name="com.example.servigo.LoginFragment"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" >
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupPage"
-        android:name="com.example.servigo.signupPage"
+        android:name="com.example.servigo.SignupFragment"
         android:label="fragment_signup_page"
         tools:layout="@layout/fragment_signup_page" >
         <action
@@ -54,12 +54,12 @@
     </fragment>
     <fragment
         android:id="@+id/explorePage"
-        android:name="com.example.servigo.explorePage"
+        android:name="com.example.servigo.ExploreFragment"
         android:label="fragment_explore_page"
         tools:layout="@layout/fragment_explore_page" />
     <fragment
         android:id="@+id/topupPage"
-        android:name="com.example.servigo.TopupPage"
+        android:name="com.example.servigo.TopupFragment"
         android:label="fragment_topup_page"
         tools:layout="@layout/fragment_topup_page" />
     <fragment

@@ -11,18 +11,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.servigo.Data.ApiResponse
 import com.example.servigo.Data.User
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
-class signupPage : Fragment() {
+class SignupFragment : Fragment() {
 
     private lateinit var apiService: ApiService
 

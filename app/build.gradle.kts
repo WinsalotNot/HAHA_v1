@@ -13,12 +13,18 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        android.buildFeatures.buildConfig = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://views-crude.gl.at.ply.gg:59304/api/payment/callback\"")
+            buildConfigField("String", "CLIENT_KEY", "\"SB-Mid-client-QrtMd37smh-W08Ry\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"http://views-crude.gl.at.ply.gg:59304/api/payment/callback\"")
+            buildConfigField("String", "CLIENT_KEY", "\"SB-Mid-client-QrtMd37smh-W08Ry\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
