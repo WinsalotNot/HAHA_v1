@@ -14,5 +14,6 @@
         <item name="android:textColor">@color/gray</item> <!-- Color for inactive item -->
     </style>
 
-    <style name="Theme.Servigo" parent="Base.Theme.Servigo" />
+    <style name="Theme.Servigo" parent="Base.Theme.Servigo">
+    </style>
 </resources>

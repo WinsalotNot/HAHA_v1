@@ -102,6 +102,23 @@
             android:textColor="#000000"
             android:textSize="13sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Booking Date"
+            android:textColor="#000000"
+            android:layout_marginBottom="5dp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/Pcalendarbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_rounded_corners"
+            android:text="Set Date"
+            android:textColor="#000000"
+            android:textAllCaps="false" />
+
         <!-- transaction option section -->
 
 <!--        <LinearLayout-->
@@ -226,6 +243,7 @@
 <!--        </LinearLayout>-->
 
         <TextView
+            android:id="@+id/Psummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -262,10 +280,11 @@
 
 
             <TextView
+                android:id="@+id/PtotalAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="IDR 429.250"
+                android:text="IDR 0"
                 android:textColor="#000000"
                 android:textSize="14sp" />
 

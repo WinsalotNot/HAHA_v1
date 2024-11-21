@@ -8,4 +8,8 @@
         <item name="android:popupBackground">@android:color/white</item>
         <item name="android:indicatorLeft">0dp</item> <!-- Remove dropdown arrow -->
     </style>
+
+    <style name="CustomMaterialDatePickerTheme" parent="Theme.MaterialComponents.DayNight">
+        <!-- Customize the date picker background color -->
+    </style>
 </resources>
