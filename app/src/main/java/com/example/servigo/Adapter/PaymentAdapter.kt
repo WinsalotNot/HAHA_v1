@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.NumberFormat
+import java.util.Locale
 
 class PaymentAdapter(private val paymentList : List<PaymentData>) : RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder>() {
 
@@ -29,7 +31,7 @@ class PaymentAdapter(private val paymentList : List<PaymentData>) : RecyclerView
         val paymentItem = paymentList[position]
         holder.payitem.text = paymentItem.item
         holder.payDesc.text = paymentItem.desc
-        holder.payAmount.text = paymentItem.amount
+        holder.payAmount.text = "${NumberFormat.getNumberInstance(Locale("id", "ID")).format(paymentItem.amount.toDouble())}"
     }
 
 

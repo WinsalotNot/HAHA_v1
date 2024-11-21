@@ -47,16 +47,16 @@ class JobListFragment : Fragment() {
 
         // Set up LayoutManager (LinearLayoutManager for vertical scrolling)
         recyclerView.layoutManager = LinearLayoutManager(context)
-
-        // Sample data for RecyclerView (you can replace this with your dynamic data)
-        val jobList = listOf(
-            JobListData("Someone who would do chores", "You will work for 5 days a week", "01/01/2025-30/01/2025", "B", "Paid Per Week", "Rp.500.000,00", "3/5", "Jakarta Barat"),
-            JobListData("Someone who would tutor", "You will work for 3 days a week", "01/01/2025-30/06/2025", "A", "Paid Per Month", "Rp.5.000.000,00", "4/5", "Jakarta Selatan"),
-            JobListData("Someone who would tutor", "You will work for 3 days a week", "01/01/2025-30/06/2025", "A", "Paid Per Month", "Rp.5.000.000,00", "4/5", "Jakarta Selatan")
-            // Add more items as needed
-        )
-
+//
+//        // Sample data for RecyclerView (you can replace this with your dynamic data)
+//        val jobList = listOf(
+//            JobListData("Someone who would do chores", "You will work for 5 days a week", "01/01/2025-30/01/2025", "B", "Paid Per Week", "Rp.500.000,00", "3/5", "Jakarta Barat"),
+//            JobListData("Someone who would tutor", "You will work for 3 days a week", "01/01/2025-30/06/2025", "A", "Paid Per Month", "Rp.5.000.000,00", "4/5", "Jakarta Selatan"),
+//            JobListData("Someone who would tutor", "You will work for 3 days a week", "01/01/2025-30/06/2025", "A", "Paid Per Month", "Rp.5.000.000,00", "4/5", "Jakarta Selatan")
+//            // Add more items as needed
+//        )
+//
         // Set up the adapter
-        recyclerView.adapter = JobListAdapter(jobList)
+//        recyclerView.adapter = JobListAdapter(jobList)
     }
 }

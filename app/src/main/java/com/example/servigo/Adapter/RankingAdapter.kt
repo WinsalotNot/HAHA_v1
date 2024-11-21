@@ -1,18 +1,20 @@
 package com.example.servigo
 
+import android.service.notification.NotificationListenerService.Ranking
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RankingAdapter(private val rankingList : List<RankingData>) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
+class RankingAdapter(private val rankingData : List<RankingData>) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
 
+    var onItemClick : ((RankingData) -> Unit)? = null
     class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textName: TextView = itemView.findViewById(R.id.R_textName)
         val textTitle: TextView = itemView.findViewById(R.id.R_textTitle)
         val textDesc: TextView = itemView.findViewById(R.id.R_textDesc)
-        val textCat: TextView = itemView.findViewById(R.id.R_textCat)
+        val textRank: TextView = itemView.findViewById(R.id.R_textRank)
         val textRating: TextView = itemView.findViewById(R.id.R_textRating)
         val textReview: TextView = itemView.findViewById(R.id.R_textReview)
     }
@@ -24,17 +26,22 @@ class RankingAdapter(private val rankingList : List<RankingData>) : RecyclerView
     }
 
     override fun getItemCount(): Int {
-        return rankingList.size
+        return rankingData.size
     }
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
-        val rankingItem = rankingList[position]
-        holder.textName.text = rankingItem.name
-        holder.textTitle.text = rankingItem.title
-        holder.textDesc.text = rankingItem.description
-        holder.textCat.text = rankingItem.rank
-        holder.textRating.text = rankingItem.rating
-        holder.textReview.text = rankingItem.review
+        val rankingData = rankingData[position]
+        holder.textName.text = rankingData.name
+        holder.textTitle.text = rankingData.title
+        holder.textDesc.text = rankingData.shortDesc
+        holder.textRank.text = rankingData.rank
+        holder.textRating.text = rankingData.rating.toString() // Display Float as String
+        holder.textReview.text = rankingData.review.toString() // Display Int as String
+
+        holder.itemView.setOnClickListener{
+            onItemClick?.invoke(rankingData)
+        }
+
     }
 
 

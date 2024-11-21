@@ -2,6 +2,7 @@ package com.example.servigo
 
 data class JobListData(
     val title: String,
+    val shortDesc: String,
     val description: String,
     val date: String,
     val requested_rank: String,

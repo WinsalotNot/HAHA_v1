@@ -1,12 +1,15 @@
 package com.example.servigo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.text.NumberFormat
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +25,10 @@ class PaymentFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var paymentList : ArrayList<PaymentData>
+    private lateinit var paymentAdapter: PaymentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,22 +50,43 @@ class PaymentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Find the RecyclerView in the inflated view
-        val recyclerView: RecyclerView = view.findViewById(R.id.payment_recyclerView)
+        val title = arguments?.getString("title") ?: "Something went wrong"
+        val feeString = arguments?.getString("fee") ?: "0"
+        val feeStringCleaned = feeString.replace(".", "")
+        val feeInt = feeStringCleaned.toIntOrNull() ?: 0
+
+        recyclerView = view.findViewById(R.id.payment_recyclerView)
+        recyclerView.setHasFixedSize(true)
 
         // Set up LayoutManager (LinearLayoutManager for vertical scrolling)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Sample data for RecyclerView (you can replace this with your dynamic data)
-        val paymentList = listOf(
-            PaymentData("Cleaning Service", "Quantity 1 · 100.000 IDR /hour", "IDR 400,000"),
-            PaymentData("Transport", "Quantity 2 · 4km", "IDR 25,000"),
-            PaymentData("Admin Fee", "Quantity 3 · 1%", "IDR 4,250")
-            // Add more items as needed
+        paymentList = ArrayList()
+        paymentList.add(
+            PaymentData(
+                item = title,
+                desc = "Quantity 1 · 100.000 IDR /hour",
+                amount = feeInt
+            )
+        )
+        paymentList.add(
+            PaymentData(
+                item = "Transport",
+                desc = "Quantity 2 · 4km",
+                amount = 25000
+            )
+        )
+        paymentList.add(
+            PaymentData(
+                item = "Admin Fee",
+                desc = "Quantity 3 · 1%",
+                amount = (feeInt * 0.01).toInt()
+            )
         )
 
         // Set up the adapter
-        recyclerView.adapter = PaymentAdapter(paymentList)
+        paymentAdapter = PaymentAdapter(paymentList)
+        recyclerView.adapter = paymentAdapter
     }
 
     companion object {

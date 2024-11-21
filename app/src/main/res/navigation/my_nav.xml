@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/loginPage">
+    app:startDestination="@id/homeFragment2">
     <fragment
         android:id="@+id/homeFragment2"
         android:name="com.example.servigo.HomeFragment"
@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment2_to_topupPage"
             app:destination="@id/topupPage" />
+        <action
+            android:id="@+id/action_homeFragment2_to_detailsFragment2"
+            app:destination="@id/detailsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/transactionHistory"
@@ -59,4 +62,13 @@
         android:name="com.example.servigo.TopupPage"
         android:label="fragment_topup_page"
         tools:layout="@layout/fragment_topup_page" />
+    <fragment
+        android:id="@+id/detailsFragment2"
+        android:name="com.example.servigo.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_detail">
+        <action
+            android:id="@+id/action_detailsFragment2_to_paymentPage"
+            app:destination="@id/paymentPage" />
+    </fragment>
 </navigation>

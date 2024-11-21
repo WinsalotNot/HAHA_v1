@@ -28,6 +28,10 @@ class LeaderboardFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var rankingList : ArrayList<RankingData>
+    private lateinit var rankingAdapter: RankingAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -48,62 +52,60 @@ class LeaderboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Find the RecyclerView in the inflated view
-        val recyclerView: RecyclerView = view.findViewById(R.id.leaderboard_recyclerView)
+        recyclerView = view.findViewById(R.id.leaderboard_recyclerView)
 
         // Set up LayoutManager (LinearLayoutManager for vertical scrolling)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Sample data for RecyclerView (you can replace this with your dynamic data)
-        val rankingList = listOf(
+        rankingList = ArrayList()
+
+        rankingList.add(
             RankingData(
-                "Hasanudin Alibama",
-                "Professional House Keeper",
-                "A hard working house keeper that will ensure the cleanliness of the house. You can come home at ease!",
-                "S",
-                "4.5/5",
-                "(1500 reviews)"
-            ),
-            RankingData(
-                "Jane Doe",
-                "Professional Electrician",
-                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
-                "A",
-                "2.5/5",
-                "(450 reviews)"
-            ),
-            RankingData(
-                "Jane Doe",
-                "Professional Electrician",
-                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
-                "A",
-                "2.5/5",
-                "(450 reviews)"
-            ),
-            RankingData(
-                "Jane Doe",
-                "Professional Electrician",
-                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
-                "A",
-                "2.5/5",
-                "(450 reviews)"
-            ),
-            RankingData(
-                "Jane Doe",
-                "Professional Electrician",
-                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
-                "A",
-                "2.5/5",
-                "(450 reviews)"
-            ),
-            RankingData(
-                "Jane Doe",
-                "Professional Electrician",
-                "If you're looking for fast work, don't ask for me, but if you're looking for the best, safest, and cleanest fixes out there. Call me!",
-                "A",
-                "2.5/5",
-                "(450 reviews)"
+                name = "Bob Marley",
+                title = "Professional House Keeper",
+                description = "Expert in keeping homes spotless and organized with 10+ years of experience.",
+                rank = "A",
+                rating = 4.8f, // Example Float value
+                review = 120, // Example Int value
+                addr = "123 Clean St, Neat City",
+                fee = 500000,
+                img = "baby", // Placeholder for now
+                cat = "Housekeeping",
+                shortDesc = "Experienced housekeeper ensuring cleanliness and order."
             )
-            // Add more items as needed
+        )
+
+        rankingList.add(
+            RankingData(
+                name = "Alice Johnson",
+                title = "Certified Babysitter",
+                description = "Caring babysitter with certifications in child care and safety.",
+                rank = "S",
+                rating = 4.9f,
+                review = 250,
+                addr = "45 Safe Rd, Kidstown",
+                fee = 300000,
+                img = "booby",
+                cat = "Babysitting",
+                shortDesc = "Trusted babysitter with a focus on child safety and fun."
+            )
+        )
+
+        rankingList.add(
+            RankingData(
+                name = "John Doe",
+                title = "Handyman Extraordinaire",
+                description = "Skilled handyman specializing in repairs, installations, and maintenance tasks.",
+                rank = "S",
+                rating = 4.5f,
+                review = 85,
+                addr = "78 Fixit Lane, Repairville",
+                fee = 400000,
+                img = "damn",
+                cat = "Repairs",
+                shortDesc = "Reliable handyman for all your home repair needs."
+            )
         )
         // Set up the adapter
         recyclerView.adapter = RankingAdapter(rankingList)
