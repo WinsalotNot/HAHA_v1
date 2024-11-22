@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RankingAdapter(private val rankingData : List<RankingData>) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
+class RankingAdapter(private var rankingList : List<RankingData>) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
 
     var onItemClick : ((RankingData) -> Unit)? = null
     class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,6 +19,11 @@ class RankingAdapter(private val rankingData : List<RankingData>) : RecyclerView
         val textReview: TextView = itemView.findViewById(R.id.R_textReview)
     }
 
+    fun updateData(newList: List<RankingData>) {
+        rankingList = newList
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.ranking_list_design,
             parent, false)
@@ -26,11 +31,11 @@ class RankingAdapter(private val rankingData : List<RankingData>) : RecyclerView
     }
 
     override fun getItemCount(): Int {
-        return rankingData.size
+        return rankingList.size
     }
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
-        val rankingData = rankingData[position]
+        val rankingData = rankingList[position]
         holder.textName.text = rankingData.name
         holder.textTitle.text = rankingData.title
         holder.textDesc.text = rankingData.shortDesc
