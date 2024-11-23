@@ -106,7 +106,7 @@
 
     <!--    category spinner-->
     <string-array name="categories">
-        <item>Select Category:</item>
+        <item>Set Category:</item>
         <item>Cleaning</item>
         <item>Electrical</item>
         <item>Plumbing</item>
@@ -131,7 +131,7 @@
 
     <!--    ranking spinner-->
     <string-array name="ranks">
-        <item>Select Rank:</item>
+        <item>Set Rank:</item>
         <item>S</item>
         <item>A</item>
         <item>B</item>
@@ -141,7 +141,7 @@
     </string-array>
 
     <string-array name="location">
-        <item>Select Location:</item>
+        <item>Set Location:</item>
         <item>Jakarta Pusat</item>
         <item>Jakarta Barat</item>
         <item>Jakarta Timur</item>

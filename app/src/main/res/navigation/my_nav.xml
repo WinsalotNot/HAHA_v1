@@ -25,7 +25,11 @@
         android:id="@+id/ranking_page"
         android:name="com.example.servigo.LeaderboardFragment"
         android:label="fragment_ranking_page"
-        tools:layout="@layout/fragment_leaderboard" />
+        tools:layout="@layout/fragment_leaderboard" >
+        <action
+            android:id="@+id/action_ranking_page_to_detailsFragment2"
+            app:destination="@id/detailsFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/paymentPage"
         android:name="com.example.servigo.PaymentFragment"

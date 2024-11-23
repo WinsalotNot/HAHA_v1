@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,13 +26,15 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class LeaderboardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var sharedRecyclerViewModel: SharedRecyclerViewModel
     private lateinit var rankingAdapter: RankingAdapter
+
+    private var selectedCategory: String = "Set Category:"
+    private var selectedRank: String = "Set Rank:"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +48,6 @@ class LeaderboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_leaderboard, container, false)
     }
 
@@ -56,82 +58,20 @@ class LeaderboardFragment : Fragment() {
         sharedRecyclerViewModel = ViewModelProvider(requireActivity())[SharedRecyclerViewModel::class.java]
 
         // Set up RecyclerView
-        val recyclerView: RecyclerView = view.findViewById(R.id.leaderboard_recyclerView)
+        recyclerView = view.findViewById(R.id.leaderboard_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Set up the adapter
         rankingAdapter = RankingAdapter(emptyList())
         recyclerView.adapter = rankingAdapter
 
-        // Observe the data
+        // Observe data from ViewModel
         sharedRecyclerViewModel.rankingList.observe(viewLifecycleOwner) { rankingList ->
-            rankingAdapter.updateData(rankingList)
+            applyFilters(rankingList)
         }
 
-//        // Find the RecyclerView in the inflated view
-//        recyclerView = view.findViewById(R.id.leaderboard_recyclerView)
-//
-//        // Set up LayoutManager (LinearLayoutManager for vertical scrolling)
-//        recyclerView.layoutManager = LinearLayoutManager(context)
-//
-//        // Sample data for RecyclerView (you can replace this with your dynamic data)
-//        rankingList = ArrayList()
-//
-//        rankingList.add(
-//            RankingData(
-//                name = "Bob Marley",
-//                title = "Professional House Keeper",
-//                description = "Expert in keeping homes spotless and organized with 10+ years of experience.",
-//                rank = "A",
-//                rating = 4.8f, // Example Float value
-//                review = 120, // Example Int value
-//                addr = "123 Clean St, Neat City",
-//                fee = 500000,
-//                img = "baby", // Placeholder for now
-//                cat = "Housekeeping",
-//                shortDesc = "Experienced housekeeper ensuring cleanliness and order."
-//            )
-//        )
-//
-//        rankingList.add(
-//            RankingData(
-//                name = "Alice Johnson",
-//                title = "Certified Babysitter",
-//                description = "Caring babysitter with certifications in child care and safety.",
-//                rank = "S",
-//                rating = 4.9f,
-//                review = 250,
-//                addr = "45 Safe Rd, Kidstown",
-//                fee = 300000,
-//                img = "booby",
-//                cat = "Babysitting",
-//                shortDesc = "Trusted babysitter with a focus on child safety and fun."
-//            )
-//        )
-//
-//        rankingList.add(
-//            RankingData(
-//                name = "John Doe",
-//                title = "Handyman Extraordinaire",
-//                description = "Skilled handyman specializing in repairs, installations, and maintenance tasks.",
-//                rank = "S",
-//                rating = 4.5f,
-//                review = 85,
-//                addr = "78 Fixit Lane, Repairville",
-//                fee = 400000,
-//                img = "damn",
-//                cat = "Repairs",
-//                shortDesc = "Reliable handyman for all your home repair needs."
-//            )
-//        )
-//        // Set up the adapter
-//        recyclerView.adapter = RankingAdapter(rankingList)
-//
-
-        // Set up the categorySpinner
+        // Set up categorySpinner
         val categorySpinner: Spinner = view.findViewById(R.id.categorySpinner)
-        categorySpinner.visibility = View.VISIBLE
-
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.categories,
@@ -140,11 +80,17 @@ class LeaderboardFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             categorySpinner.adapter = adapter
         }
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedCategory = categorySpinner.selectedItem.toString()
+                sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
+            }
 
-        // Set up the rankSpinner
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        // Set up rankSpinner
         val rankSpinner: Spinner = view.findViewById(R.id.rankSpinner)
-        rankSpinner.visibility = View.VISIBLE
-
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.ranks,
@@ -153,5 +99,30 @@ class LeaderboardFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             rankSpinner.adapter = adapter
         }
+        rankSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedRank = rankSpinner.selectedItem.toString()
+                sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun applyFilters(rankingList: List<RankingData>) {
+        val filteredList = rankingList.filter { ranking ->
+            (selectedCategory == "Set Category:" || ranking.cat.contains(selectedCategory, ignoreCase = true)) &&
+                    (selectedRank == "Set Rank:" || ranking.rank == selectedRank)
+        }.sortedByDescending { it.rating } // Sort by rating in descending order
+
+        rankingAdapter.updateData(filteredList)
+        // Set onItemClick listener
+        rankingAdapter.onItemClick = { rankingItem ->
+            val bundle = Bundle().apply {
+                putParcelable("rankingData", rankingItem)
+            }
+            findNavController().navigate(R.id.action_ranking_page_to_detailsFragment2, bundle)
+        }
+
     }
 }
