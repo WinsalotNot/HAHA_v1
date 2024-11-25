@@ -75,4 +75,9 @@
             android:id="@+id/action_detailsFragment2_to_paymentPage"
             app:destination="@id/paymentPage" />
     </fragment>
+    <fragment
+        android:id="@+id/jobPosting"
+        android:name="com.example.servigo.jobPosting"
+        android:label="fragment_job_posting"
+        tools:layout="@layout/fragment_job_posting" />
 </navigation>
