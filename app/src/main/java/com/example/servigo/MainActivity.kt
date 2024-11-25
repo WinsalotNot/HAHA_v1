@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                 R.id.transactionHistoryDrawer -> {
                     navController.navigate(R.id.transactionHistory)
                 }
+                R.id.postServiceDrawer -> {
+                    navController.navigate(R.id.jobPosting)
+                }
                 R.id.logoutDrawer -> {
                     // Clear the backstack and navigate to login
                     navController.popBackStack(R.id.loginPage, false)  // Clear the backstack
