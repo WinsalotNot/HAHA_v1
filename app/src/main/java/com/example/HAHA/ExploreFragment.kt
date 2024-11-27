@@ -12,16 +12,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.HAHA.R
-import com.example.HAHA.RankingAdapter
-import com.example.HAHA.RankingData
-import com.example.HAHA.SharedRecyclerViewModel
+import com.example.HAHA.Adapter.RankingAdapter
+import com.example.HAHA.Data.RankingData
 
 class ExploreFragment : Fragment() {
 

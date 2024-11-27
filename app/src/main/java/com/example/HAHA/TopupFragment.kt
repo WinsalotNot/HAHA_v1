@@ -12,13 +12,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.HAHA.RetrofitInstance.apiService
 import com.example.HAHA.Data.ApiResponse
 import com.example.HAHA.Data.PaymentRequest
-import com.example.HAHA.ViewModel.WalletViewModel
+import com.example.HAHA.RetrofitInstance.apiService
+import com.example.HAHA.ViewModel.UIViewModel
 import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import com.midtrans.sdk.uikit.external.UiKitApi
 import com.midtrans.sdk.uikit.api.model.CustomColorTheme
@@ -32,7 +33,7 @@ class TopupFragment : Fragment() {
 
     private val CLIENT_KEY = BuildConfig.CLIENT_KEY
     private val BASE_URL = BuildConfig.BASE_URL
-    private lateinit var walletViewModel: WalletViewModel
+    private val uiViewModel: UIViewModel by viewModels()
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -54,13 +55,10 @@ class TopupFragment : Fragment() {
         val topupConfirmButton = view.findViewById<Button>(R.id.topup_confirm)
         val amountInput = view.findViewById<EditText>(R.id.amount)
 
-        // Initialize ViewModel
-        walletViewModel = ViewModelProvider(requireActivity()).get(WalletViewModel::class.java)
-
         // Observe walletAmount
-        walletViewModel.walletAmount.observe(viewLifecycleOwner, Observer { amount ->
+        uiViewModel.walletAmount.observe(viewLifecycleOwner, Observer { amount ->
             // Update UI when walletAmount changes
-            view.findViewById<TextView>(R.id.walletAmountDisplay_topup).text = walletViewModel.formatToIDR(amount)
+            view.findViewById<TextView>(R.id.walletAmountDisplay_topup).text = uiViewModel.formatToIDR(amount)
         })
 
         topupConfirmButton.setOnClickListener {
@@ -90,7 +88,7 @@ class TopupFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // Refresh data or call the ViewModel to fetch new data
-        walletViewModel.fetchWalletAmount()
+        uiViewModel.fetchWalletAmount()
     }
 
     private fun initiatePayment(userId: Int, amount: Double) {

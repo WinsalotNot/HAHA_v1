@@ -14,8 +14,11 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-        android.buildFeatures.buildConfig = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig = true // Correct placement of buildConfig
     }
 
     buildTypes {

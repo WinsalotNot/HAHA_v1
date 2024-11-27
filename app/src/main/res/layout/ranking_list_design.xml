@@ -44,7 +44,7 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
-                android:text="@string/aboutMe"
+                android:text="aboutMe"
                 android:textColor="#747474"
                 android:textSize="8sp" />
 

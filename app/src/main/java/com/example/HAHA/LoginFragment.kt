@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("USER_ID", userid.toString()) // Save userId
-        editor.putString("USER_NAME", username) // Save userId
+        editor.putString("USER_NAME", username) // Save u
         editor.putString("USER_ADDRESS", address) // Save userId
         editor.apply()
     }
@@ -78,6 +78,9 @@ class LoginFragment : Fragment() {
                 // Check if the response is successful
                 if (response.isSuccessful) {
                     val responseBody = response.body()
+                    if (responseBody != null) {
+                        Log.d("APIResponse", "User ID: ${responseBody.userId}, Name: ${responseBody.name}, Address: ${responseBody.address}")
+                    }
                     if (responseBody != null && responseBody.success) {
                         // Login successful
                         val userId = responseBody.userId // Assuming the user ID is part of the response

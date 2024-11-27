@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.HAHA.Data.RankingData
 
 class SharedRecyclerViewModel : ViewModel() {
     private val _rankingList = MutableLiveData<List<RankingData>>()

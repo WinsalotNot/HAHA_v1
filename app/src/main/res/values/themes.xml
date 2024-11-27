@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Servigo" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.HAHA" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
     <!-- styles.xml -->
@@ -14,6 +14,6 @@
         <item name="android:textColor">@color/gray</item> <!-- Color for inactive item -->
     </style>
 
-    <style name="Theme.HAHA" parent="Base.Theme.Servigo">
+    <style name="Theme.HAHA" parent="Base.Theme.HAHA">
     </style>
 </resources>

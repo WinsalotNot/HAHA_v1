@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment2">
     <fragment
         android:id="@+id/homeFragment2"
-        android:name="com.example.HAHA.HomeFragment"
+        android:name="com.example.HAHA.Fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/transactionHistory"
-        android:name="com.example.HAHA.TransactionHistoryFragment"
+        android:name="com.example.HAHA.Fragments.TransactionHistoryFragment"
         android:label="fragment_transaction_history"
         tools:layout="@layout/fragment_transaction_history" />
     <fragment
         android:id="@+id/ranking_page"
-        android:name="com.example.HAHA.LeaderboardFragment"
+        android:name="com.example.HAHA.Fragments.LeaderboardFragment"
         android:label="fragment_ranking_page"
         tools:layout="@layout/fragment_leaderboard" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/paymentPage"
-        android:name="com.example.HAHA.PaymentFragment"
+        android:name="com.example.HAHA.Fragments.PaymentFragment"
         android:label="fragment_payment_page"
         tools:layout="@layout/fragment_payment_page" />
     <fragment
@@ -68,7 +68,7 @@
         tools:layout="@layout/fragment_topup_page" />
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.HAHA.DetailsFragment"
+        android:name="com.example.HAHA.Fragments.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_detail">
         <action

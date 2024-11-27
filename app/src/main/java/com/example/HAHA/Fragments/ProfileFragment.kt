@@ -1,10 +1,11 @@
-package com.example.HAHA
+package com.example.HAHA.Fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.HAHA.R
 
 class ProfileFragment : Fragment() {
 

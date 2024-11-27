@@ -1,4 +1,4 @@
-package com.example.HAHA
+package com.example.HAHA.Data
 
 data class HistoryData(
     val name: String,

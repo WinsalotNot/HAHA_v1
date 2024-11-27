@@ -1,4 +1,4 @@
-package com.example.HAHA
+package com.example.HAHA.Fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import com.example.HAHA.R
+import com.example.HAHA.Data.RankingData
 import java.text.NumberFormat
 import java.util.Locale
 

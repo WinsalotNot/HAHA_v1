@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:paddingBottom="40dp"
-    tools:context=".DetailsFragment">
+    tools:context=".Fragments.DetailsFragment">
 
     <ScrollView
         android:layout_width="0dp"
@@ -256,7 +256,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/aboutMe"
                     android:layout_marginTop="10dp"
-                    android:text="@string/aboutMe" />
+                    android:text="aboutme" />
 
                 <TextView
                     android:id="@+id/photoText"

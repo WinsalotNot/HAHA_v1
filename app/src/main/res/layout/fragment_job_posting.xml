@@ -52,18 +52,15 @@
                         android:textColor="#FFFFFF"
                         android:textSize="15sp" />
 
-                    <ToggleButton
-                        android:id="@+id/toggleButton"
+                    <ImageView
+                        android:id="@+id/availabilityIcon_topup"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/status_dot"
-                        android:clickable="false"
-                        android:textOff=" "
-                        android:textOn=" " />
+                        android:background="@drawable/status_dot" />
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/availabilityText_topup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/avail"
@@ -102,7 +99,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/imageView"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/accountImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                        app:layout_constraintTop_toBottomOf="@+id/accountNameField" />
 
                     <TextView
                         android:layout_width="wrap_content"

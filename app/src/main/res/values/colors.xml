@@ -9,10 +9,11 @@
     <color name="dark_red">#7D090A</color>
     <color name="brighter_red">#D30F13</color>
     <color name="light_red">#BE3130</color>
+    <color name="very_saturated_red">#FF0000</color>
     <color name="bright_orange">#FF5722</color>
     <color name="lighter_red">#A02B2A</color>
     <color name="xp_green">#B5F452</color>
-    <color name="lime_green">#00FF00</color>
+    <color name="lime_green_default">#00FF00</color>
     <color name="brownish_yellow">#EAD296</color>
     <color name="light_brownish_yellow">#F3EEC8</color>
     <color name="light_gray">#BDBCBB</color>

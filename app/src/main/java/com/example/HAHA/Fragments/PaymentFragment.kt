@@ -1,4 +1,4 @@
-package com.example.HAHA
+package com.example.HAHA.Fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -12,6 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.HAHA.Adapter.PaymentAdapter
+import com.example.HAHA.Data.PaymentData
+import com.example.HAHA.R
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar

@@ -1,4 +1,4 @@
-package com.example.HAHA
+package com.example.HAHA.Data
 
 import android.os.Parcel
 import android.os.Parcelable

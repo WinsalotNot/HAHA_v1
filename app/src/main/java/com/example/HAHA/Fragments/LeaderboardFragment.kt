@@ -1,4 +1,4 @@
-package com.example.HAHA
+package com.example.HAHA.Fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.HAHA.Adapter.RankingAdapter
+import com.example.HAHA.Data.RankingData
+import com.example.HAHA.R
+import com.example.HAHA.SharedRecyclerViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

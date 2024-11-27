@@ -1,10 +1,12 @@
-package com.example.HAHA
+package com.example.HAHA.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.HAHA.Data.PaymentData
+import com.example.HAHA.R
 import java.text.NumberFormat
 import java.util.Locale
 

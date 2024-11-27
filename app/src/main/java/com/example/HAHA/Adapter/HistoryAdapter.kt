@@ -1,4 +1,4 @@
-package com.example.HAHA
+package com.example.HAHA.Adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.HAHA.Data.HistoryData
+import com.example.HAHA.R
 
 class HistoryAdapter(private val historyList: List<HistoryData>) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 

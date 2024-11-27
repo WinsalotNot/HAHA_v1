@@ -10,4 +10,8 @@ data class ApiResponse(
     val address: String
 )
 
+data class AvailabilityResponse(
+    val availability: String
+)
+
 

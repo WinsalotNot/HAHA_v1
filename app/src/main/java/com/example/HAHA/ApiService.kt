@@ -1,6 +1,7 @@
 package com.example.HAHA
 
 import com.example.HAHA.Data.ApiResponse
+import com.example.HAHA.Data.AvailabilityResponse
 import com.example.HAHA.Data.PaymentRequest
 import com.example.HAHA.Data.User
 import retrofit2.Response
@@ -24,4 +25,7 @@ interface ApiService {
 
     @GET("/api/wallet/{userId}getWalletAmount")
     suspend fun getWalletAmount(@Path("userId") userId: Int): Response<Double>
+
+    @GET("/api/availability/{userId}getAvailability")
+    suspend fun getAvailability(@Path("userId") userId: Int): Response<AvailabilityResponse>
 }
