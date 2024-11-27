@@ -1,8 +1,9 @@
-package com.example.HAHA
+package com.example.servigo
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 class ExploreFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
@@ -37,7 +39,7 @@ class ExploreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize ViewModel
-        sharedRecyclerViewModel = ViewModelProvider(requireActivity())[SharedRecyclerViewModel::class.java]
+        sharedRecyclerViewModel = ViewModelProvider(requireActivity()).get(SharedRecyclerViewModel::class.java)
         val searchEditText: EditText = view.findViewById(R.id.Esearch)
         val locationSpinner: Spinner = view.findViewById(R.id.locationSpinner)
         val rankSpinner: Spinner = view.findViewById(R.id.ratingSpinner)
@@ -51,9 +53,10 @@ class ExploreFragment : Fragment() {
         rankingAdapter = RankingAdapter(emptyList())
         recyclerView.adapter = rankingAdapter
 
-        // Observe the data
+        // **Observe the data**
         sharedRecyclerViewModel.rankingList.observe(viewLifecycleOwner) { rankingList ->
-            applyFilters(rankingList)
+            Log.d("ExploreFragment", "Observer triggered with list:: $rankingList")
+            applyFilters(rankingList)  // When the ranking list changes, apply filters and update the UI
         }
 
         // Set up the spinners
@@ -94,18 +97,23 @@ class ExploreFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-
+        // **Add search functionality**
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                searchQuery = s.toString().lowercase()
+                searchQuery = s.toString().lowercase()  // Updates search query on text change
                 sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
             }
         })
 
+        // **Ensure new data added from JobPosting page is merged**
+        // (You need to call this method from the JobPosting page when adding new data)
     }
 
+    // **Method to handle new data addition in ViewModel**
+
+    // Apply filters and update the adapter with the filtered list
     private fun applyFilters(rankingList: List<RankingData>) {
         val filteredList = rankingList.filter { ranking ->
             (selectedLocation == "Set Location:" || ranking.addr.contains(selectedLocation, ignoreCase = true)) &&
@@ -117,33 +125,23 @@ class ExploreFragment : Fragment() {
 
         rankingAdapter.updateData(filteredList)
 
-        rankingAdapter.updateData(filteredList)
-
-        // Set onItemClick listener
+        // **Added item click listener to navigate to the details fragment**
         rankingAdapter.onItemClick = { rankingItem ->
             val bundle = Bundle().apply {
-                putParcelable("rankingData", rankingItem)
+                putParcelable("rankingData", rankingItem)  // Passing the selected item to the details fragment
             }
             findNavController().navigate(R.id.action_homeFragment2_to_detailsFragment2, bundle)
         }
     }
 
-
-    private fun Spinner.setOnItemSelectedListener(listener: () -> Unit) {
-        this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                listener()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
-    }
+    // **Helper function to reset UI**
     override fun onResume() {
         super.onResume()
-        // Reset any UI elements or data that need to be refreshed when returning to this fragment
+
+        // Reset RecyclerView scroll position
         (view?.findViewById<RecyclerView>(R.id.explore_recyclerView))?.scrollToPosition(0)
+
+        // Reset Spinner selections to default
         (view?.findViewById<Spinner>(R.id.locationSpinner))?.setSelection(0)
-        // Add more resets as necessary
     }
 }
