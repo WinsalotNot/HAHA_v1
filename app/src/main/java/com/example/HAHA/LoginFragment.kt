@@ -57,16 +57,18 @@ class LoginFragment : Fragment() {
     }
 
     // Function to save the user ID
-    private fun saveUserId(userid: Int) {
+    private fun saveUser(userid: Int, username: String, address: String) {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("USER_ID", userid.toString()) // Save userId
+        editor.putString("USER_NAME", username) // Save userId
+        editor.putString("USER_ADDRESS", address) // Save userId
         editor.apply()
     }
 
     private fun loginUser(email: String, password: String) {
         // Create a User object with email and password
-        val user = User(email, password)
+        val user = User(email, password, null.toString(), null.toString())
 
         lifecycleScope.launch {
             try {
@@ -79,9 +81,11 @@ class LoginFragment : Fragment() {
                     if (responseBody != null && responseBody.success) {
                         // Login successful
                         val userId = responseBody.userId // Assuming the user ID is part of the response
+                        val username = responseBody.name
+                        val address = responseBody.address
 
                         // Save the user ID in SharedPreferences
-                        saveUserId(userId)
+                        saveUser(userId, username, address)
 
                         withContext(Dispatchers.Main) {
                             // Display success message

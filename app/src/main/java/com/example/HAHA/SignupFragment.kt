@@ -39,15 +39,19 @@ class SignupFragment : Fragment() {
 
         val etPassword = view.findViewById<EditText>(R.id.etPassword)
         val etEmail = view.findViewById<EditText>(R.id.etEmail)
+        val etName = view.findViewById<EditText>(R.id.etName)
+        val etAddress = view.findViewById<EditText>(R.id.etAddress)
         val btnSignup = view.findViewById<Button>(R.id.btnSignup)
 
         btnSignup.setOnClickListener {
             val email = etEmail.text.toString().trim()
+            val name = etName.text.toString().trim()
+            val address = etAddress.text.toString().trim()
             val password = etPassword.text.toString().trim()
             val rePassword = view.findViewById<EditText>(R.id.etRePassword).text.toString().trim()
 
             // Validate input
-            if (email.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty() || rePassword.isEmpty() || name.isEmpty() || address.isEmpty()) {
                 Toast.makeText(requireContext(), "All fields are required!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -72,7 +76,7 @@ class SignupFragment : Fragment() {
             }
 
             // Create Firebase user and send email verification
-            verifyEmailAndRegister(email, password)
+            verifyEmailAndRegister(email, password, name, address)
         }
 
         return view
@@ -83,7 +87,7 @@ class SignupFragment : Fragment() {
         return password.matches(passwordRegex.toRegex())
     }
 
-    private fun verifyEmailAndRegister(email: String, password: String) {
+    private fun verifyEmailAndRegister(email: String, password: String, name : String, address : String) {
         // Initialize FirebaseAuth
         val tempAuth = FirebaseAuth.getInstance()
 
@@ -102,7 +106,7 @@ class SignupFragment : Fragment() {
                             ).show()
 
                             // Wait for user to verify the email with a timeout logic
-                            checkEmailVerification(tempAuth, email, password)
+                            checkEmailVerification(tempAuth, email, password, name, address)
                         } else {
                             Toast.makeText(
                                 requireContext(),
@@ -124,7 +128,7 @@ class SignupFragment : Fragment() {
             }
     }
 
-    private fun checkEmailVerification(tempAuth: FirebaseAuth, email: String, password: String) {
+    private fun checkEmailVerification(tempAuth: FirebaseAuth, email: String, password: String, name : String, address : String) {
         lifecycleScope.launch {
             val startTime = System.currentTimeMillis()
 
@@ -141,7 +145,7 @@ class SignupFragment : Fragment() {
                     ).show()
 
                     // Call your Retrofit-based registerUser method
-                    registerUser(email, password)
+                    registerUser(email, password, name, address)
 
                     // Clean up temporary Firebase account
                     tempUser.delete()
@@ -167,8 +171,8 @@ class SignupFragment : Fragment() {
         }
     }
 
-    private fun registerUser(email: String, password: String) {
-        val user = User(email, password)
+    private fun registerUser(email: String, password: String, name: String, address: String) {
+        val user = User(email, password, name, address)
 
         // Launch a coroutine to make the API call
         lifecycleScope.launch(Dispatchers.IO) {

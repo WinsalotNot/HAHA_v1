@@ -1,4 +1,4 @@
-package com.example.servigo
+package com.example.HAHA
 
 import android.os.Bundle
 import android.text.Editable
@@ -18,6 +18,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.HAHA.R
+import com.example.HAHA.RankingAdapter
+import com.example.HAHA.RankingData
+import com.example.HAHA.SharedRecyclerViewModel
+
 class ExploreFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView

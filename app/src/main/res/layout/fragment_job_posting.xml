@@ -150,30 +150,19 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter Name:"
+                android:text="Enter Work Place Address:"
                 android:textColor="#000000"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/editName"
+            <CheckBox
+                android:id="@+id/useAccAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:hint="e.g. Akhbar Jihad"
-                android:inputType="text"
-                android:textSize="15sp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Address:"
-                android:textColor="#000000"
-                android:textSize="15sp" />
+                android:text="Use Account Address" />
 
             <EditText
                 android:id="@+id/editAddr"

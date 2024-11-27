@@ -13,10 +13,10 @@
 
         <LinearLayout
             android:id="@+id/linearLayout7"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_width="373dp"
+            android:layout_height="553dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/red_rounded_corners"
             android:orientation="vertical"
             android:padding="20dp"
@@ -42,7 +42,7 @@
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/rounded_corners"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
@@ -67,7 +67,7 @@
                 <EditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/rounded_corners"
                     android:hint="Password"
                     android:inputType="text"
@@ -92,9 +92,61 @@
                 <EditText
                     android:id="@+id/etRePassword"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/rounded_corners"
                     android:hint="Re-Enter Password"
+                    android:inputType="text"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+            <!-- Input Name -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Enter Name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_corners"
+                    android:hint="First Name"
+                    android:inputType="text"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+            <!-- Input Address -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Enter Address"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_corners"
+                    android:hint="Address"
                     android:inputType="text"
                     android:padding="10dp" />
 
@@ -114,7 +166,8 @@
             android:id="@+id/btnSignup"
             android:layout_width="140dp"
             android:layout_height="37dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/red_rounded_corners"
             android:text="SIGN UP"
             android:textAllCaps="false"
@@ -124,8 +177,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
 
         <ImageView
             android:id="@+id/imageView9"
