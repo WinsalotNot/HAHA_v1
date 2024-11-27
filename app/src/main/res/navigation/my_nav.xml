@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment2">
     <fragment
         android:id="@+id/homeFragment2"
-        android:name="com.example.servigo.HomeFragment"
+        android:name="com.example.HAHA.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -14,30 +14,30 @@
             app:destination="@id/topupPage" />
         <action
             android:id="@+id/action_homeFragment2_to_detailsFragment2"
-            app:destination="@id/detailsFragment2" />
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/transactionHistory"
-        android:name="com.example.servigo.TransactionHistoryFragment"
+        android:name="com.example.HAHA.TransactionHistoryFragment"
         android:label="fragment_transaction_history"
         tools:layout="@layout/fragment_transaction_history" />
     <fragment
         android:id="@+id/ranking_page"
-        android:name="com.example.servigo.LeaderboardFragment"
+        android:name="com.example.HAHA.LeaderboardFragment"
         android:label="fragment_ranking_page"
         tools:layout="@layout/fragment_leaderboard" >
         <action
             android:id="@+id/action_ranking_page_to_detailsFragment2"
-            app:destination="@id/detailsFragment2" />
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentPage"
-        android:name="com.example.servigo.PaymentFragment"
+        android:name="com.example.HAHA.PaymentFragment"
         android:label="fragment_payment_page"
         tools:layout="@layout/fragment_payment_page" />
     <fragment
         android:id="@+id/loginPage"
-        android:name="com.example.servigo.LoginFragment"
+        android:name="com.example.HAHA.LoginFragment"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupPage"
-        android:name="com.example.servigo.SignupFragment"
+        android:name="com.example.HAHA.SignupFragment"
         android:label="fragment_signup_page"
         tools:layout="@layout/fragment_signup_page" >
         <action
@@ -58,26 +58,26 @@
     </fragment>
     <fragment
         android:id="@+id/explorePage"
-        android:name="com.example.servigo.ExploreFragment"
+        android:name="com.example.HAHA.ExploreFragment"
         android:label="fragment_explore_page"
         tools:layout="@layout/fragment_explore_page" />
     <fragment
         android:id="@+id/topupPage"
-        android:name="com.example.servigo.TopupFragment"
+        android:name="com.example.HAHA.TopupFragment"
         android:label="fragment_topup_page"
         tools:layout="@layout/fragment_topup_page" />
     <fragment
-        android:id="@+id/detailsFragment2"
-        android:name="com.example.servigo.DetailsFragment"
+        android:id="@+id/detailsFragment"
+        android:name="com.example.HAHA.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_detail">
         <action
-            android:id="@+id/action_detailsFragment2_to_paymentPage"
+            android:id="@+id/action_detailsFragment_to_paymentPage"
             app:destination="@id/paymentPage" />
     </fragment>
     <fragment
         android:id="@+id/jobPosting"
-        android:name="com.example.servigo.jobPosting"
+        android:name="com.example.HAHA.jobPosting"
         android:label="fragment_job_posting"
         tools:layout="@layout/fragment_job_posting" />
 </navigation>

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="0dp"
-    tools:context=".HomeFragment">
+    tools:context=".Fragments.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -96,11 +96,15 @@
             app:layout_constraintVertical_bias="0.104" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/walletAmountDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="0dp"
-            android:text="@string/test_balance"
+            android:text="Rp 0,00"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="50sp"
+            android:autoSizeStepGranularity="1sp"
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
@@ -116,7 +120,7 @@
             android:layout_height="65dp"
             android:src="@drawable/wallet_icon_foreground"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@+id/walletAmountDisplay"
             app:layout_constraintHorizontal_bias="0.724"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -182,7 +186,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.example.servigo.ExploreFragment"
+                android:name="com.example.HAHA.ExploreFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
         </androidx.core.widget.NestedScrollView>

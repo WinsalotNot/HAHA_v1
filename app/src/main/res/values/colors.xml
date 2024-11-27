@@ -16,5 +16,6 @@
     <color name="brownish_yellow">#EAD296</color>
     <color name="light_brownish_yellow">#F3EEC8</color>
     <color name="light_gray">#BDBCBB</color>
+    <color name="translucent_gray">#66000000</color>
 
 </resources>

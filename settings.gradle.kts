@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Servigo"
+rootProject.name = "HAHA"
 include(":app")
  

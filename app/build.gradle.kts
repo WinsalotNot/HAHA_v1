@@ -1,14 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.servigo"
+    namespace = "com.example.HAHA"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.servigo"
+        applicationId = "com.example.HAHA"
         minSdk = 29
         targetSdk = 35
         versionCode = 1
@@ -19,11 +20,11 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://views-crude.gl.at.ply.gg:59304/api/payment/callback\"")
+            buildConfigField("String", "BASE_URL", "\"http://views-crude.gl.at.ply.gg:59304/api/payment/callback/\"")
             buildConfigField("String", "CLIENT_KEY", "\"SB-Mid-client-QrtMd37smh-W08Ry\"")
         }
         release {
-            buildConfigField("String", "BASE_URL", "\"http://views-crude.gl.at.ply.gg:59304/api/payment/callback\"")
+            buildConfigField("String", "BASE_URL", "\"http://views-crude.gl.at.ply.gg:59304/api/payment/callback/\"")
             buildConfigField("String", "CLIENT_KEY", "\"SB-Mid-client-QrtMd37smh-W08Ry\"")
             isMinifyEnabled = false
             proguardFiles(
@@ -65,4 +66,16 @@ dependencies {
 
     // Payment Gateway = Midtrans
     implementation(libs.uikit)
+
+    // Import the BoM for the Firebase platform
+    implementation(platform(libs.firebase.bom))
+
+    implementation(libs.firebase.analytics)
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.auth)
+
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation(libs.play.services.auth)
 }
