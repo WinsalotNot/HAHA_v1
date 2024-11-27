@@ -74,10 +74,18 @@
         <action
             android:id="@+id/action_detailsFragment_to_paymentPage"
             app:destination="@id/paymentPage" />
+        <action
+            android:id="@+id/action_detailsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobPosting"
         android:name="com.example.HAHA.jobPosting"
         android:label="fragment_job_posting"
         tools:layout="@layout/fragment_job_posting" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.HAHA.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>

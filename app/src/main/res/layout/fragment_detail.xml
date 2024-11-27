@@ -314,14 +314,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:layout_height="60dp"
         android:paddingVertical="10dp"
         android:paddingHorizontal="20dp"
         android:background="#BE3130">
 
         <Button
+            android:id="@+id/Dchatbtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Chat"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/rounded_corners"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/Dbookbtn"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:text="Book Now"

@@ -23,7 +23,8 @@ class SharedRecyclerViewModel : ViewModel() {
                 fee = 600000,
                 img = "boo",
                 cat = "Electrical",
-                shortDesc = "Experienced and certified electrical technician."
+                shortDesc = "Experienced and certified electrical technician.",
+                creatorId = "none1"
             ),
             RankingData(
                 name = "Ahmad Santoso",
@@ -36,7 +37,8 @@ class SharedRecyclerViewModel : ViewModel() {
                 fee = 450000,
                 img = "boo",
                 cat = "Plumbing",
-                shortDesc = "Reliable plumber with expertise in water systems."
+                shortDesc = "Reliable plumber with expertise in water systems.",
+                creatorId = "none2"
             )
 
         )

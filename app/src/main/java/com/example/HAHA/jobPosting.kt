@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,6 +76,9 @@ class jobPosting : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val username = sharedPreferences.getString("USER_NAME", null)
         var accAddress : String? = null.toString()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val creatorId = currentUser?.uid ?: "ifNullThenNotLoggedIn"
+
 
         useAccountAddressCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -125,7 +129,8 @@ class jobPosting : Fragment() {
                 fee = fee,
                 img = "boo",
                 cat = category,
-                shortDesc = shortDesc
+                shortDesc = shortDesc,
+                creatorId = creatorId
             )
 
             sharedRecyclerViewModel.addRankingData(newJobPosting)

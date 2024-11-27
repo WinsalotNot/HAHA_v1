@@ -49,6 +49,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val bookbtn = view.findViewById<Button>(R.id.Dbookbtn)
+        val chatbtn = view.findViewById<Button>(R.id.Dchatbtn)
         val rankingData = arguments?.getParcelable<RankingData>("rankingData")
 
         if (rankingData != null){
@@ -73,6 +74,16 @@ class DetailsFragment : Fragment() {
             addr.text = rankingData.addr
             fee.text = NumberFormat.getNumberInstance(Locale("in", "ID")).format(rankingData.fee)
 
+            chatbtn.setOnClickListener {
+                // Pass the text content of the TextViews to the bundle
+                val bundle = Bundle().apply {
+                    putString("creatorId", rankingData.creatorId)
+                }
+
+                // Navigate to the PaymentFragment
+                findNavController().navigate(R.id.action_detailsFragment_to_chatFragment, bundle)
+            }
+
         }
 
         bookbtn.setOnClickListener {
@@ -87,22 +98,5 @@ class DetailsFragment : Fragment() {
             findNavController().navigate(R.id.action_detailsFragment_to_paymentPage, bundle)
         }
 
-//        // Retrieve arguments passed via the navigation graph
-//        val title = arguments?.getString("title")
-//        val description = arguments?.getString("description")
-//        val date = arguments?.getString("date")
-//        val minStar = arguments?.getString("min_star")
-//        val requestedRank = arguments?.getString("requested_rank")
-//        val payment = arguments?.getString("payment")
-//        val howMuch = arguments?.getString("how_much")
-//        val address = arguments?.getString("address")
-//
-//        // Set data to views in the fragment layout
-//        view.findViewById<TextView>(R.id.textView6).text = title
-//        view.findViewById<TextView>(R.id.aboutdesc).text = description
-//        view.findViewById<TextView>(R.id.textView9).text = "$minStar ($requestedRank)"
-//        view.findViewById<TextView>(R.id.textView5).text = payment
-//        view.findViewById<TextView>(R.id.textView10).text = howMuch
-//        view.findViewById<TextView>(R.id.textView7).text = address
     }
 }

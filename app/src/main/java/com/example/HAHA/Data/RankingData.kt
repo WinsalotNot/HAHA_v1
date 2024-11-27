@@ -3,7 +3,6 @@ package com.example.HAHA
 import android.os.Parcel
 import android.os.Parcelable
 
-
 data class RankingData(
     val name: String,
     val title: String,
@@ -15,7 +14,8 @@ data class RankingData(
     val fee: Int, // Fee
     val img: String, // Image URL
     val cat: String, // Category
-    val shortDesc: String // Short Description
+    val shortDesc: String, // Short Description
+    val creatorId: String // Creator ID
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
@@ -28,7 +28,8 @@ data class RankingData(
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readString() ?: ""
+        parcel.readString() ?: "",
+        parcel.readString() ?: "" // Read creatorId
     ) {
     }
 
@@ -44,6 +45,7 @@ data class RankingData(
         parcel.writeString(img)
         parcel.writeString(cat)
         parcel.writeString(shortDesc)
+        parcel.writeString(creatorId) // Write creatorId to parcel
     }
 
     override fun describeContents(): Int {
