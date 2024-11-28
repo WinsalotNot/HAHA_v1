@@ -80,6 +80,7 @@ class DetailsFragment : Fragment() {
                 // Pass the text content of the TextViews to the bundle
                 val bundle = Bundle().apply {
                     putString("creatorId", rankingData.creatorId)
+                    putString("name", view.findViewById<TextView>(R.id.Dname).text.toString())
                 }
 
                 // Navigate to the PaymentFragment

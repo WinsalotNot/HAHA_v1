@@ -78,7 +78,7 @@ class jobPosting : Fragment() {
         val username = sharedPreferences.getString("USER_NAME", null)
         var accAddress : String? = null.toString()
         val currentUser = FirebaseAuth.getInstance().currentUser
-        val creatorId = currentUser?.uid ?: "ifNullThenNotLoggedIn"
+        val creatorId = "BobMarley"  //TODO: will need to change this to a real id later
 
 
         useAccountAddressCheckbox.setOnCheckedChangeListener { _, isChecked ->
