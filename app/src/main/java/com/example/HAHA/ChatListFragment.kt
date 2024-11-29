@@ -1,5 +1,7 @@
 package com.example.HAHA
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -36,20 +38,22 @@ class ChatListFragment : Fragment() {
     private lateinit var chatRoomAdapter: ChatListAdapter
     private val chatRoomsRef = FirebaseDatabase.getInstance("https://testing-6341f-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("chatRooms")
 
-    private val userId = "BlackMamba1" // TODO: Replace with the logged-in user's ID
+    private var userId = "BlackMamba1"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_chat_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_chat_list, container, false)
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        userId = sharedPreferences.getString("USER_ID", null) ?: ""
+        chatRoomRecyclerView = view.findViewById(R.id.chatRoomRecyclerView)
+        chatRoomRecyclerView.layoutManager = LinearLayoutManager(context)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        chatRoomRecyclerView = view.findViewById(R.id.chatRoomRecyclerView)
-        chatRoomRecyclerView.layoutManager = LinearLayoutManager(context)
         chatRoomAdapter = ChatListAdapter(mutableListOf()) { chatRoom ->
             // Handle chat room click
             openChatRoom(chatRoom)

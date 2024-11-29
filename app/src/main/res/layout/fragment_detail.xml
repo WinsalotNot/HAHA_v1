@@ -22,8 +22,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/DProfilePic"
                 android:layout_width="416dp"
                 android:layout_height="426dp"
                 android:scaleType="fitXY"
@@ -40,7 +41,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView8">
+                app:layout_constraintTop_toBottomOf="@+id/DProfilePic">
 
                 <TextView
                     android:id="@+id/Dtitle"

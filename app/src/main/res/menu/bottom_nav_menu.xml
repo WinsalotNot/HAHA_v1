@@ -9,6 +9,10 @@
         android:icon="@drawable/ic_transac"
         android:title="Transaction" />
     <item
+        android:id="@+id/jobPosting"
+        android:icon="@drawable/ic_post"
+        android:title="Post"/>
+    <item
         android:id="@+id/leaderboardFragment"
         android:icon="@drawable/ic_leader"
         android:title="Leaderboard" />

@@ -57,6 +57,8 @@ dependencies {
     // Retrofit and Gson Converter
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.firebase.storage.ktx)
 
     // Testing Dependencies
     testImplementation(libs.junit) // JUnit for unit testing
@@ -81,6 +83,10 @@ dependencies {
 
     // Also add the dependency for the Google Play services library and specify its version
     implementation(libs.play.services.auth)
+
+    // Glide = For Image Loading
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler) // For Glide's annotation processor (if needed)
     // Firebase Realtime Database
-    implementation("com.google.firebase:firebase-database:21.0.0")
+    implementation(libs.firebase.database)
 }

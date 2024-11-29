@@ -40,13 +40,22 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/R_textCat"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:ellipsize="end"
+                android:textColor="#747474"
+                android:textSize="11sp" />
+
+            <TextView
                 android:id="@+id/R_textDesc"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
                 android:text="aboutMe"
                 android:textColor="#747474"
-                android:textSize="8sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 

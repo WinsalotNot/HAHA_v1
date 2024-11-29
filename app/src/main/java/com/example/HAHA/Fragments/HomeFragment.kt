@@ -67,9 +67,6 @@ class HomeFragment : Fragment() {
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         accNameField = view.findViewById(R.id.accountNameField)
 
-        // Directly use the StateListDrawable without casting it to ShapeDrawable
-        val availabilityIcon = resources.getDrawable(R.drawable.status_dot)
-
         // Retrieve username from SharedPreferences
         val username = sharedPreferences.getString("USER_NAME", null)
 
@@ -105,10 +102,8 @@ class HomeFragment : Fragment() {
             }
         }
 
-
-        // Observe loading state and show/hide loading indicator accordingly
-        uiViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
+        uiViewModel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
                 (requireActivity() as MainActivity).showLoading()
             } else {
                 (requireActivity() as MainActivity).hideLoading()

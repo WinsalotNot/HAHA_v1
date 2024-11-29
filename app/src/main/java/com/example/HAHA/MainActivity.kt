@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
             when (item.itemId) {
                 R.id.homeFragment2 -> navController.navigate(R.id.homeFragment2)
                 R.id.leaderboardFragment -> navController.navigate(R.id.ranking_page)
+                R.id.jobPosting -> navController.navigate(R.id.jobPosting)
                 R.id.transactionHistory -> navController.navigate(R.id.transactionHistory)
                 R.id.chatFragment -> navController.navigate(R.id.chatListFragment)
             }
@@ -124,7 +125,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                 }
             }
         }
-
     }
 
     override fun onDrawerToggle() {
@@ -147,3 +147,4 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         findViewById<ProgressBar>(R.id.loadingWheel).visibility = View.GONE
     }
 }
+

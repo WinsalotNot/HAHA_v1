@@ -61,6 +61,14 @@ class TopupFragment : Fragment() {
             view.findViewById<TextView>(R.id.walletAmountDisplay_topup).text = uiViewModel.formatToIDR(amount)
         })
 
+        uiViewModel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                (requireActivity() as MainActivity).showLoading()
+            } else {
+                (requireActivity() as MainActivity).hideLoading()
+            }
+        }
+
         topupConfirmButton.setOnClickListener {
             val inputted = amountInput.text.toString()
             if (inputted.isEmpty()) {

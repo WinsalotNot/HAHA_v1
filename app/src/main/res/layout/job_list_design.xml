@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/job"
-    android:layout_width="match_parent"
-    android:layout_height="180dp"
-    android:clickable="true"
+    android:layout_width="wrap_content"
+    android:layout_height="130dp"
     android:layout_marginVertical="10dp"
     android:background="@drawable/rounded_corners"
     android:orientation="horizontal"
     android:padding="10dp">
 
-
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
+        android:layout_weight="0.6"
         android:layout_height="wrap_content"
         android:src="@drawable/profile" />
 
@@ -23,18 +20,25 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/jName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="LOOKING FOR"
+            android:text="NAME HERE"
+            android:autoSizeMaxTextSize="20dp"
+            android:autoSizeMinTextSize="11dp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black"/>
+
         <TextView
-            android:id="@+id/jtitleTextView"
+            android:id="@+id/jTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
@@ -43,33 +47,29 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/jdescriptionTextView"
+            android:id="@+id/jCat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
-            android:text="Job Description: clean house"
+            android:maxLines="4"
+            android:text="Category"
+            android:ellipsize="end"
             android:textColor="#747474"
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/jdateTextView"
+            android:id="@+id/jShortDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="2dp"
-            android:text="Date: 17/12/24"
+            android:maxLines="4"
+            android:text="Job Desc"
+            android:ellipsize="end"
             android:textColor="#747474"
             android:textSize="11sp" />
 
-        <TextView
-            android:id="@+id/jpaymentTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="2dp"
-            android:textSize="11sp"
-            android:text="per Month" />
 
         <TextView
-            android:id="@+id/jhowmuchTextView"
+            android:id="@+id/jFee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
@@ -78,7 +78,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/jaddressTextView"
+            android:id="@+id/jAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
@@ -89,59 +89,82 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_weight="0.6"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/jRank"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:text="Requested Rank:" />
+            android:layout_height="60dp"
 
-        <TextView
-            android:id="@+id/jrequestedrankTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="S"
             android:textColor="#FDBF07"
             android:textSize="50sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Min:" />
-
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="15dp"
+                android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:src="@drawable/star" />
 
             <TextView
-                android:id="@+id/jminstarTextView"
+                android:id="@+id/jRating"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="4.9/5"
+                android:layout_height="wrap_content"
+                android:text="4.9"
+                android:textAlignment="viewStart"
+                android:textColor="#000000" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/5"
                 android:textAlignment="viewStart"
                 android:textColor="#000000" />
 
-
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="("
+                android:textColor="#000000"
+                android:textSize="7sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/jReview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="120"
+                android:textColor="#000000"
+                android:textSize="7sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=" Reviews)"
+                android:textColor="#000000"
+                android:textSize="7sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

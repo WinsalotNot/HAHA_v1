@@ -1,5 +1,7 @@
 package com.example.HAHA
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,10 +46,12 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
         messagesRecyclerView = view.findViewById(R.id.chatRecyclerView)
 
-        val userId = "BlackMamba1" // TODO: Replace with the logged-in user ID
-        val userName = "BlackMamba"
+        val userId = sharedPreferences.getString("USER_ID", null)
+        val userName = sharedPreferences.getString("USER_NAME", null)
         val creatorId = arguments?.getString("creatorId") ?: ""
         val creatorName = arguments?.getString("name") ?: ""
 
@@ -57,21 +61,34 @@ class ChatFragment : Fragment() {
 
         messagesRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        getOrCreateChatRoom(userId, creatorId) { id ->
-            roomId = id
-            loadMessages(roomId!!, userId)
+        if (userId != null) {
+            getOrCreateChatRoom(userId, creatorId) { id ->
+                roomId = id
+                loadMessages(roomId!!, userId)
+            }
+        } else {
+            Log.e(TAG, "User ID is null")
         }
+
         sendBtn.setOnClickListener {
             val messageText = messageInput.text.toString().trim()
 
             if (roomId != null && messageText.isNotEmpty()) {
-                sendMessage(roomId!!, userId, creatorId, userName, creatorName, messageText)
+                if (userId != null) {
+                    if (userName != null) {
+                        sendMessage(roomId!!, userId, creatorId, userName, creatorName, messageText)
+                    } else {
+                        Log.e(TAG, "Username is null")
+                    }
+                } else {
+                    Log.e(TAG, "User ID is null")
+                }
                 messageInput.text.clear()
             }
         }
 
     }
-    fun getOrCreateChatRoom(user1: String, user2: String, callback: (roomId: String) -> Unit) {
+    private fun getOrCreateChatRoom(user1: String, user2: String, callback: (roomId: String) -> Unit) {
         // Create a composite key based on user1 and user2
         val chatRoomKey = listOf(user1, user2).sorted().joinToString("_")
         // Query chatRooms by composite key
@@ -105,7 +122,7 @@ class ChatFragment : Fragment() {
         })
     }
 
-    fun sendMessage(roomId: String, senderId: String, receiverId: String, senderName: String, receiverName: String, messageText: String) {
+    private fun sendMessage(roomId: String, senderId: String, receiverId: String, senderName: String, receiverName: String, messageText: String) {
         val messageRef = chatRoomsRef.child(roomId).child("messages").push()
         val chatMessage = ChatData(
             senderId = senderId,
@@ -125,7 +142,7 @@ class ChatFragment : Fragment() {
             }
     }
 
-    fun loadMessages(roomId: String, userId: String) {
+    private fun loadMessages(roomId: String, userId: String) {
         val messagesRef = chatRoomsRef.child(roomId).child("messages")  // Reference to the messages node in the specific chat room
         messagesRef.orderByChild("timestamp").addChildEventListener(object : ChildEventListener {
             // This listener listens for changes (new messages) in the 'messages' node of the specified roomId.

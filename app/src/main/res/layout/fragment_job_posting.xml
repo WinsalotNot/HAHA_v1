@@ -127,12 +127,12 @@
 
         <LinearLayout
             android:id="@+id/linearLayout9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_width="372dp"
+            android:layout_height="558dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
@@ -210,9 +210,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
                         android:text="Enter Category:"
                         android:textColor="#000000"
-                        android:layout_marginLeft="7dp"
                         android:textSize="15sp" />
 
                     <Spinner
@@ -276,13 +276,28 @@
                 android:inputType="number"
                 android:textSize="15sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload A Picture of You!"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/uploadPic"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:background="@color/light_gray"
+                android:src="@drawable/upload"
+                android:textSize="15sp" />
+
         </LinearLayout>
 
         <Button
             android:id="@+id/postJobbtn"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/red_rounded_corners"
             android:text="Post Service!"
             android:textAllCaps="false"
