@@ -136,12 +136,12 @@ class ChatListFragment : Fragment() {
                         val bundle = Bundle().apply {
                             if (userId == senderId) {
                                 // If the user is the sender, pass the receiver's info
-                                putString("creatorId", receiverId)  // Pass the receiver's ID
+                                putInt("creatorId", receiverId?.toIntOrNull() ?: -1)  // Pass the receiver's ID
                                 putString("name", receiverName)     // Pass the receiver's name
                                 Log.e("ChatRoomsFragment", "creatorID: $receiverId") // Log receiver info
                             } else {
                                 // If the user is the receiver, pass the sender's info
-                                putString("creatorId", senderId)   // Pass the sender's ID
+                                putInt("creatorId", senderId?.toIntOrNull() ?: -1)   // Pass the sender's ID
                                 putString("name", senderName)       // Pass the sender's name
                                 Log.e("ChatRoomsFragment", "creatorID: $senderId")  // Log sender info
                             }
