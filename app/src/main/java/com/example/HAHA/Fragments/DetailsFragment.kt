@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,8 @@ class DetailsFragment : Fragment() {
         val postingData = arguments?.getParcelable<PostingData>("rankingData")
 
         if (postingData != null) {
+
+            Log.d("DetailsFragment", "rankingData: $postingData")
 
             val name: TextView = view.findViewById(R.id.Dname)
             val title: TextView = view.findViewById(R.id.Dtitle)

@@ -12,10 +12,10 @@ data class PostingData(
     val review: Int,
     val addr: String,
     val fee: Float,
-    val img: String, // Keeping img as ByteArray
     val cat: String,
     val shortDesc: String,
-    val creatorid: Int
+    val creatorid: Int,
+    val img: String
 ) : Parcelable, Comparable<PostingData> {
 
     override fun compareTo(other: PostingData): Int {
@@ -53,10 +53,10 @@ data class PostingData(
                 parcel.readInt(),
                 parcel.readString() ?: "",
                 parcel.readFloat(),
+                parcel.readString() ?: "",
+                parcel.readString() ?: "",
+                parcel.readInt(),
                 parcel.readString() ?: "", // Read img as ByteArray
-                parcel.readString() ?: "",
-                parcel.readString() ?: "",
-                parcel.readInt()
             )
         }
 
