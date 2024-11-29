@@ -151,6 +151,7 @@ class ChatFragment : Fragment() {
                 val chatMessage = snapshot.getValue(ChatData::class.java)  // Convert the snapshot data to a ChatMessage object
                 if (chatMessage != null) {
                     chatAdapter.addMessage(chatMessage)  // Add the message to the adapter (to update RecyclerView)
+                    messagesRecyclerView.scrollToPosition(chatAdapter.itemCount - 1)
                 }
             }
 
