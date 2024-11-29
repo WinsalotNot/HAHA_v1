@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                 R.id.homeFragment2 -> navController.navigate(R.id.homeFragment2)
                 R.id.leaderboardFragment -> navController.navigate(R.id.ranking_page)
                 R.id.transactionHistory -> navController.navigate(R.id.transactionHistory)
+                R.id.chatFragment -> navController.navigate(R.id.chatListFragment)
             }
             true
         }

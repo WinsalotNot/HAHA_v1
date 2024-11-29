@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_leader"
         android:title="Leaderboard" />
     <item
-        android:id="@+id/accountFragment"
-        android:icon="@drawable/ic_account_bottomnav"
-        android:title="Account" />
+        android:id="@+id/chatFragment"
+        android:icon="@drawable/outline_chat_24"
+        android:title="Chat" />
 </menu>
