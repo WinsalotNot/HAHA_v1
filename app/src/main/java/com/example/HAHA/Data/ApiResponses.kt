@@ -11,7 +11,8 @@ data class ApiResponse(
 )
 
 data class AvailabilityResponse(
-    val availability: String
+    val availability: String,
+    val hasBenefAcc: Boolean
 )
 
 

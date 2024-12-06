@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.2"
+biometric = "1.1.0"
 compiler = "4.15.1"
 firebaseBom = "33.6.0"
 firebaseDatabase = "21.0.0"
@@ -25,6 +26,7 @@ glideVersion = "4.15.1"
 
 
 [libraries]
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }

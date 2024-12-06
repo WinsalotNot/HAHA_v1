@@ -52,7 +52,7 @@ class ChatFragment : Fragment() {
 
         val userId = sharedPreferences.getString("USER_ID", null)
         val userName = sharedPreferences.getString("USER_NAME", null)
-        val creatorId = arguments?.getInt("creatorId")?.toString() ?: "69"
+        val creatorId = arguments?.getString("creatorId") ?: "69"
         val creatorName = arguments?.getString("name") ?: ""
 
         // Initialize the EditText and Button

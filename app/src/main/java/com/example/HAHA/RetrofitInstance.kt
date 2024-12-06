@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    private const val BASE_URL = "http://views-crude.gl.at.ply.gg:59304/"
+    private const val BASE_URL = "https://quetzal-deciding-generally.ngrok-free.app/"
 
     val apiService: ApiService by lazy {
 

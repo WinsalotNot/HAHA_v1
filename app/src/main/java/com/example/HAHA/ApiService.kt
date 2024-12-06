@@ -2,8 +2,12 @@ package com.example.HAHA
 
 import com.example.HAHA.Data.ApiResponse
 import com.example.HAHA.Data.AvailabilityResponse
+import com.example.HAHA.Data.ChangePassReq
 import com.example.HAHA.Data.PaymentRequest
+import com.example.HAHA.Data.PayoutData
 import com.example.HAHA.Data.PostingData
+import com.example.HAHA.Data.PurchaseData
+import com.example.HAHA.Data.TransferData
 import com.example.HAHA.Data.User
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -49,6 +53,21 @@ interface ApiService {
         @Part("shortDesc") shortDesc: String,
         @Part("creatorid") creatorid: Int) : Response<ApiResponse>
 
-    @GET("/api/posting/getAllPosts")
-    suspend fun getAllPosts(): Response<List<PostingData>>
+    @GET("/api/posting/getAllAvailablePosts")
+    suspend fun getAllAvailablePosts(): Response<List<PostingData>>
+
+    @GET("/api/posting/{userId}getAllBoughtPosts")
+    suspend fun getAllBoughtPosts(@Path("userId") userId: Int): Response<List<PostingData>>
+
+    @POST("/api/transfer")
+    suspend fun transfer(@Body transferData: TransferData): Response<ApiResponse>
+
+    @POST("/api/payment/payoutnow")
+    suspend fun payoutNow(@Body payoutData: PayoutData): Response<ApiResponse>
+
+    @POST("/api/resetPassword")
+    suspend fun resetPassword(@Body changepassreq: ChangePassReq): Response<ApiResponse>
+
+    @POST("/api/posting/purchaseService")
+    suspend fun purchaseService(@Body purchaseData: PurchaseData): Response<ApiResponse>
 }

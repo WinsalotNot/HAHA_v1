@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:name=".HAHAApp"
@@ -18,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HAHA"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

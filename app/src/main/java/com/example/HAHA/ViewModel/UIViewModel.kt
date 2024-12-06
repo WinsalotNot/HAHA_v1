@@ -23,6 +23,7 @@ class UIViewModel(application: Application) : AndroidViewModel(application) {
 
     val walletAmount = MutableLiveData<Double>()
     val availability = MutableLiveData<String>()
+    val hasbenefacc = MutableLiveData<Boolean>()
 
     val errorMessage = MutableLiveData<String>()
     val sharedPreferences = getApplication<Application>().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)

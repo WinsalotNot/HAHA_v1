@@ -1,12 +1,14 @@
 package com.example.HAHA
 
 import android.app.Activity
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.HAHA.Data.ApiResponse
 import com.example.HAHA.Data.PaymentRequest
 import com.example.HAHA.RetrofitInstance.apiService
@@ -33,6 +36,7 @@ class TopupFragment : Fragment() {
 
     private val CLIENT_KEY = BuildConfig.CLIENT_KEY
     private val BASE_URL = BuildConfig.BASE_URL
+    private lateinit var backbutton : ImageButton
     private val uiViewModel: UIViewModel by viewModels()
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -54,6 +58,11 @@ class TopupFragment : Fragment() {
 
         val topupConfirmButton = view.findViewById<Button>(R.id.topup_confirm)
         val amountInput = view.findViewById<EditText>(R.id.amount)
+        backbutton = view.findViewById(R.id.backButt)
+
+        backbutton.setOnClickListener{
+            findNavController().navigateUp()
+        }
 
         // Observe walletAmount
         uiViewModel.walletAmount.observe(viewLifecycleOwner, Observer { amount ->

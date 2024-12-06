@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -21,6 +22,8 @@ import java.util.Locale
 import com.bumptech.glide.Glide
 
 class DetailsFragment : Fragment() {
+
+    private lateinit var backButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,11 @@ class DetailsFragment : Fragment() {
         val bookbtn = view.findViewById<Button>(R.id.Dbookbtn)
         val chatbtn = view.findViewById<Button>(R.id.Dchatbtn)
         val postingData = arguments?.getParcelable<PostingData>("rankingData")
+        backButton = view.findViewById(R.id.backButtDetail)
+
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         if (postingData != null) {
 
@@ -86,6 +94,7 @@ class DetailsFragment : Fragment() {
             bookbtn.setOnClickListener {
                 // Pass the text content of the TextViews to the bundle
                 val bundle = Bundle().apply {
+                    putInt("creatorId", postingData.creatorid)
                     putString("title", view.findViewById<TextView>(R.id.Dtitle).text.toString())
                     putString("name", view.findViewById<TextView>(R.id.Dname).text.toString())
                     putString("fee", view.findViewById<TextView>(R.id.Dfee).text.toString())

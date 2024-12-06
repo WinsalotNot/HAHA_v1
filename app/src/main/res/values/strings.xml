@@ -1,17 +1,22 @@
 <resources>
-    <string name="app_name">HAHA</string>
+    <string name="app_name" translatable="false">HAHA</string>
     <string name="top_up">Top Up</string>
     <string name="icon_acc">icon of account</string>
     <string name="island_bar">island bar design</string>
     <string name="acc_name">Placeholder Placeholder</string>
     <string name="wallet">This is the wallet</string>
     <string name="balance">Balance:</string>
-    <string name="avail">Available</string>
+    <string name="avail" translatable="false">Available</string>
     <string name="inneedof">In Need of...</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sign_up"><u>Sign up!</u></string>
+    <string name="sign_up" translatable="false"><u>Sign up!</u></string>
+    <string name="withdraw"><u>WITHDRAW FROM WALLET!</u></string>
+    <string name="how_much">How Much To Withdraw From Wallet?</string>
+    <string name="choose_type_payout">Choose Where To Receive Payout</string>
+    <string name="forgot_password" translatable="false"><u>Forgot password?</u></string>
+    <string name="passReq">Password Requires AT LEAST\n• 8 Characters\n• One capital letter\n• One number \nMAX CHARACTERS: 16\nONLY ALPHABETS (a/A-z/Z) and NUMBERS (0-9)</string>
 
     <!--    category spinner-->
     <string-array name="categories">

@@ -81,7 +81,7 @@ class jobPosting : Fragment() {
         val userid: Int = sharedPreferences.getString("USER_ID", null)?.toInt() ?: 0
         var accAddress: String? = null.toString()
         val currentUser = FirebaseAuth.getInstance().currentUser
-        val creatorId = "BobMarley"  //TODO: will need to change this to a real id later
+        val creatorId = username
 
 
         useAccountAddressCheckbox.setOnCheckedChangeListener { _, isChecked ->
@@ -152,8 +152,13 @@ class jobPosting : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
-                            Toast.makeText(context, "Job Posted Successfully!", Toast.LENGTH_SHORT)
-                                .show()
+                            if (response.body()?.success == true) {
+                                Toast.makeText(context, "Job Posted Successfully!", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                Toast.makeText(context, response.body()?.message ?: "User Posted Already", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         } else {
                             Toast.makeText(context, "Error posting job", Toast.LENGTH_SHORT).show()
                         }

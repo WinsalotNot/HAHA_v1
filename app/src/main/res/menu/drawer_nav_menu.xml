@@ -4,20 +4,11 @@
         android:id="@+id/nav_home"
         android:title="Edit Porfile" />
     <item
-        android:id="@+id/nav_profile"
-        android:title="Payment Options"/>
+        android:id="@+id/withdraw_wallet"
+        android:title="Withdraw Wallet"/>
     <item
         android:id="@+id/transactionHistoryDrawer"
         android:title="Transaction History"/>
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Favourites"/>
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Notifications"/>
-    <item
-        android:id="@+id/postServiceDrawer"
-        android:title="Post Service"/>
     <item
         android:id="@+id/nav_settings"
         android:title="Privacy and Security"/>

@@ -1,44 +1,94 @@
 package com.example.HAHA.Fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.HAHA.Adapter.HistoryAdapter
-import com.example.HAHA.Data.HistoryData
+import com.example.HAHA.Adapter.RecyclerAdapter
+import com.example.HAHA.Data.PostingData
+import com.example.HAHA.MainActivity
 import com.example.HAHA.R
+import com.example.HAHA.SharedRecyclerViewModel
 
 class TransactionHistoryFragment : Fragment() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var sharedRecyclerViewModel: SharedRecyclerViewModel
+    private lateinit var recyclerAdapter: RecyclerAdapter
+    private lateinit var sharedPreferences: SharedPreferences // Make sharedPreferences a global variable
+    private var userid: Int = 0 // Global userId
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transaction_history, container, false)
+        val view = inflater.inflate(R.layout.fragment_transaction_history, container, false)
+
+
+        // Initialize ViewModel
+        sharedRecyclerViewModel = activityViewModels<SharedRecyclerViewModel>().value
+
+        // Set up RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerView)
+        // Initialize RecyclerAdapter for "transactionhistory" design
+        recyclerAdapter = RecyclerAdapter("transactionhistory")
+
+        return view
     }
 
-    // Set up the RecyclerView after the view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        userid = sharedPreferences.getInt("USER_ID_INT", 0)
 
-        // Find the RecyclerView in the inflated view
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-
-        // Set up LayoutManager (LinearLayoutManager for vertical scrolling)
+        // Set up RecyclerView layout manager
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = recyclerAdapter
 
-        // Sample data for RecyclerView (you can replace this with your dynamic data)
-        val historyList = listOf(
-            HistoryData("Hasanudin Alibama", "Professional House Keeper", "Job Description: Clean House", "17/12/24", "Rp.502.500,00", "5/5", "5/5", "S"),
-            HistoryData("Jane Doe", "Professional Electrician", "Job Description: Safe Wires", "17/11/24", "Rp.600.500,00", "4.5/5", "3/5", "A")
-            // Add more items as needed
-        )
+        // Observe data from ViewModel
+        sharedRecyclerViewModel.rankingList.observe(viewLifecycleOwner, Observer { rankingList ->
+            // Call applyFilters with the list (no filtering logic for now)
+            applyFilters(rankingList)
+        })
 
-        // Set up the adapter
-        recyclerView.adapter = HistoryAdapter(historyList)
+        sharedRecyclerViewModel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                (requireActivity() as MainActivity).showLoading()
+            } else {
+                (requireActivity() as MainActivity).hideLoading()
+            }
+        }
+
+        // Trigger data loading
+        sharedRecyclerViewModel.loadDataHistory(userid = userid)
+    }
+
+    // Handle data and update the adapter (without filtering)
+    private fun applyFilters(rankingList: List<PostingData>) {
+        // No filtering applied, just pass the list directly to the adapter
+        recyclerAdapter.submitList(rankingList)
+
+        // Set onItemClick listener for item clicks
+        recyclerAdapter.onItemClick = { transactionItem ->
+            val bundle = Bundle().apply {
+                putParcelable("transactionData", transactionItem)
+            }
+            findNavController().navigate(R.id.action_transactionHistory_to_detailsFragment, bundle)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("TransactionHistoryFragment", "onResume called: Loading Data...")
+        sharedRecyclerViewModel.loadDataHistory(userid = userid) // Replace with actual user ID
     }
 }

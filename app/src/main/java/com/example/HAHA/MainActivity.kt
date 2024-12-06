@@ -1,21 +1,36 @@
 package com.example.HAHA
 
+import android.content.Context
+import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.HAHA.Data.PayoutData
 import com.example.HAHA.Fragments.HomeFragment
+import com.example.HAHA.ViewModel.UIViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
@@ -24,15 +39,27 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
     private lateinit var navigationViewDrawer: NavigationView
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
+    private var canNavigateToJobPosting = false
+    private var lastToastTime: Long = 0
+    private val toastCooldownTime: Long = 1000 // 500 milliseconds (0.5 seconds)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        val uiViewModel: UIViewModel = ViewModelProvider(this).get(UIViewModel::class.java)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationViewDrawer = findViewById(R.id.nav_view_drawer)
         bottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        uiViewModel.availability.observe(this) {
+            canNavigateToJobPosting = if (it.lowercase() == "Not Available") {
+                true
+            } else {
+                false
+            }
+        }
 
         // Initialize NavController
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -51,13 +78,13 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                 R.id.transactionHistoryDrawer -> {
                     navController.navigate(R.id.transactionHistory)
                 }
-                R.id.postServiceDrawer -> {
-                    navController.navigate(R.id.jobPosting)
-                }
                 R.id.logoutDrawer -> {
                     // Clear the backstack and navigate to login
                     navController.popBackStack(R.id.loginPage, false)  // Clear the backstack
                     navController.navigate(R.id.loginPage)
+                }
+                R.id.withdraw_wallet -> {
+                    navController.navigate(R.id.withdrawFragment)
                 }
                 else -> {
                     navController.navigate(R.id.homeFragment2)
@@ -72,7 +99,12 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
             when (item.itemId) {
                 R.id.homeFragment2 -> navController.navigate(R.id.homeFragment2)
                 R.id.leaderboardFragment -> navController.navigate(R.id.ranking_page)
-                R.id.jobPosting -> navController.navigate(R.id.jobPosting)
+                R.id.jobPosting ->
+                    if (canNavigateToJobPosting) {
+                        navController.navigate(R.id.jobPosting)
+                    } else {
+                        showToastIfNeeded("You Have Posted! Currently Only 1 Post Per Person")
+                    }
                 R.id.transactionHistory -> navController.navigate(R.id.transactionHistory)
                 R.id.chatFragment -> navController.navigate(R.id.chatListFragment)
             }
@@ -83,7 +115,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val navhostfragmentView = findViewById<View>(R.id.nav_host_fragment)
             when (destination.id) {
-                R.id.loginPage, R.id.signupPage, R.id.topupPage -> {
+                R.id.loginPage, R.id.signupPage, R.id.topupPage, R.id.detailsFragment -> {
 
                     ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
                         val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -113,6 +145,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                         insets
                     }
 
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)  // Unlock when necessary
+
                     // Add Padding back to maintain the bottom space
                     navhostfragmentView.setPadding(0, 0, 0, 60)
 
@@ -125,13 +159,23 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                 }
             }
         }
-    }
+}
+
 
     override fun onDrawerToggle() {
         if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.openDrawer(GravityCompat.START)
         } else {
             drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
+    private fun showToastIfNeeded(message: String) {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastToastTime > toastCooldownTime) {
+            // Show the Toast and update lastToastTime
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            lastToastTime = currentTime
         }
     }
 

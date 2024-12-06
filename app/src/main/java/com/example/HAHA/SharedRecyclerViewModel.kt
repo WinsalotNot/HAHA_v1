@@ -1,6 +1,9 @@
 package com.example.HAHA
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,7 +33,36 @@ class SharedRecyclerViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Make the network call to fetch the posts
-                val response = RetrofitInstance.apiService.getAllPosts()
+                val response = RetrofitInstance.apiService.getAllAvailablePosts()
+                // Check if the response is successful
+                if (response.isSuccessful && response.body() != null) {
+                    val posts = response.body()!!
+
+                    withContext(Dispatchers.Main) {
+                        // Update the LiveData with the fetched posts
+                        unfilteredRankingList = posts // Store the decoded posts in the unfiltered list
+                        _rankingList.value = posts // Update the LiveData
+                    }
+                    Log.d("SharedRecyclerViewModel", "Posts fetched successfully")
+                } else {
+                    Log.e("SharedRecyclerViewModel", "Failed to load posts: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("SharedRecyclerViewModel", "Error fetching posts: ${e.message}")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    // Load initial data (this could be a network call or database fetch)
+    fun loadDataHistory(userid: Int) {
+        _isLoading.postValue(true)
+        // Start a coroutine to load data asynchronously
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Make the network call to fetch the posts
+                val response = RetrofitInstance.apiService.getAllBoughtPosts(userid)
                 // Check if the response is successful
                 if (response.isSuccessful && response.body() != null) {
                     val posts = response.body()!!

@@ -89,4 +89,8 @@ dependencies {
     annotationProcessor(libs.compiler) // For Glide's annotation processor (if needed)
     // Firebase Realtime Database
     implementation(libs.firebase.database)
+
+    // BIOMETRICS
+    implementation(libs.androidx.biometric)
+
 }

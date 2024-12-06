@@ -1,8 +1,12 @@
 package com.example.HAHA.Adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -17,12 +21,23 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
     companion object {
         private const val VIEW_TYPE_EXPLORE = 1
         private const val VIEW_TYPE_LEADERBOARD = 2
+        private const val VIEW_TYPE_HISTORY = 3
     }
 
     var onItemClick: ((PostingData) -> Unit)? = null
 
+    // Override submitList to deduplicate items by creatorid for Leaderboard
+    override fun submitList(list: List<PostingData>?) {
+        val uniqueList = when (design.lowercase()) {
+            "leaderboard", "transactionhistory" -> list?.distinctBy { it.creatorid }
+            else -> list
+        }
+        super.submitList(list)
+    }
+
     // ViewHolder for Explore Design
     class ExploreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         private val jtextName: TextView = itemView.findViewById(R.id.jName)
         private val jtextTitle: TextView = itemView.findViewById(R.id.jTitle)
         private val jtextDesc: TextView = itemView.findViewById(R.id.jShortDesc)
@@ -34,8 +49,8 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
         private val jtextCat: TextView = itemView.findViewById(R.id.jCat)
 
         fun bind(rankingData: PostingData, onItemClick: ((PostingData) -> Unit)?) {
-            val numberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID")) // Locale for Indonesian Rupiah
-            numberFormat.maximumFractionDigits = 2 // Limit to 2 decimal places
+            val numberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+            numberFormat.maximumFractionDigits = 2
 
             jtextName.text = rankingData.username.trim('"')
             jtextTitle.text = rankingData.title.trim('"')
@@ -43,13 +58,56 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
             jtextRank.text = rankingData.rank.trim('"')
             jtextRating.text = rankingData.rating.toString()
             jtextReview.text = rankingData.review.toString()
-            jtextFee.text = numberFormat.format(rankingData.fee) // Format the fee as Rupiah
+            jtextFee.text = numberFormat.format(rankingData.fee)
             jtextAddress.text = rankingData.addr.trim('"')
             jtextCat.text = rankingData.cat.trim('"')
 
             itemView.setOnClickListener { onItemClick?.invoke(rankingData) }
         }
+    }
 
+    // ViewHolder for Explore Design
+    class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val htextName: TextView = itemView.findViewById(R.id.hName)
+        private val htextTitle: TextView = itemView.findViewById(R.id.hTitle)
+        private val htextDesc: TextView = itemView.findViewById(R.id.hShortDesc)
+        private val htextRank: TextView = itemView.findViewById(R.id.hRank)
+        private val htextRating: TextView = itemView.findViewById(R.id.hRating)
+        private val htextReview: TextView = itemView.findViewById(R.id.hReview)
+        private val htextFee: TextView = itemView.findViewById(R.id.hFee)
+        private val htextAddress: TextView = itemView.findViewById(R.id.hAddress)
+        private val htextCat: TextView = itemView.findViewById(R.id.hCat)
+        private val htextStatus: TextView = itemView.findViewById(R.id.historyStatusText)
+        private val htextStatusDot: ImageView = itemView.findViewById(R.id.historyStatus)
+
+        fun bind(rankingData: PostingData, onItemClick: ((PostingData) -> Unit)?) {
+            val numberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+            numberFormat.maximumFractionDigits = 2
+            Log.d("History Binding Bool", "isCompleted: ${rankingData.isCompleted}, isBought: ${rankingData.isBought}")
+            htextName.text = rankingData.username.trim('"')
+            htextTitle.text = rankingData.title.trim('"')
+            htextDesc.text = (if (rankingData.shortDesc.length > 95) rankingData.shortDesc.take(95) + "..." else rankingData.shortDesc).trim('"')
+            htextRank.text = rankingData.rank.trim('"')
+            htextRating.text = rankingData.rating.toString()
+            htextReview.text = rankingData.review.toString()
+            htextFee.text = numberFormat.format(rankingData.fee)
+            htextAddress.text = rankingData.addr.trim('"')
+            htextCat.text = rankingData.cat.trim('"')
+            htextStatus.text = when {
+                rankingData.isCompleted -> "Completed" // Check this first as it's a final state
+                rankingData.isBought -> "Ongoing"
+                else -> "Not History"
+            }
+            Log.d("hTextStatus", "Status: ${htextStatus.text}")
+            htextStatusDot.backgroundTintList = when {
+                rankingData.isCompleted -> ColorStateList.valueOf(Color.parseColor("#00FF00")) // Green for completed
+                rankingData.isBought -> ColorStateList.valueOf(Color.parseColor("#FF0000")) // Red for ongoing
+                else -> ColorStateList.valueOf(Color.GRAY)
+            }
+            Log.d("hTextStatusDot", "Color: ${htextStatusDot.backgroundTintList.toString()}")
+            itemView.setOnClickListener { onItemClick?.invoke(rankingData) }
+        }
     }
 
     // ViewHolder for Leaderboard Design
@@ -81,6 +139,8 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
             VIEW_TYPE_EXPLORE
         } else if (design.lowercase() == "leaderboard") {
             VIEW_TYPE_LEADERBOARD
+        } else if (design.lowercase() == "transactionhistory") {
+            VIEW_TYPE_HISTORY
         } else {
             throw IllegalArgumentException("Invalid design type: $design")
         }
@@ -97,6 +157,10 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
                 val itemView = LayoutInflater.from(parent.context).inflate(R.layout.ranking_list_design, parent, false)
                 LeaderboardViewHolder(itemView)
             }
+            VIEW_TYPE_HISTORY -> {
+                val itemView = LayoutInflater.from(parent.context).inflate(R.layout.history_list_design, parent, false)
+                HistoryViewHolder(itemView)
+            }
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -107,6 +171,7 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
         when (holder) {
             is ExploreViewHolder -> holder.bind(rankingData, onItemClick)
             is LeaderboardViewHolder -> holder.bind(rankingData, onItemClick)
+            is HistoryViewHolder -> holder.bind(rankingData, onItemClick)
             else -> throw IllegalArgumentException("Invalid ViewHolder type")
         }
     }

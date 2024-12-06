@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.HAHA.Adapter.RecyclerAdapter
 import com.example.HAHA.Data.PostingData
+import com.example.HAHA.Fragments.HomeFragment
 
 class ExploreFragment : Fragment() {
 
@@ -122,6 +123,8 @@ class ExploreFragment : Fragment() {
                 sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
             }
         })
+
+        Log.d("HomeFragment", "Finished Creating View")
     }
 
     private fun applyFilters(rankingList: List<PostingData>) {

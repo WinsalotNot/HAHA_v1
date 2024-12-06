@@ -11,16 +11,35 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment2_to_topupPage"
-            app:destination="@id/topupPage" />
+            app:destination="@id/topupPage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment2_to_detailsFragment2"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment2_to_jobPosting"
+            app:destination="@id/jobPosting"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/transactionHistory"
         android:name="com.example.HAHA.Fragments.TransactionHistoryFragment"
         android:label="fragment_transaction_history"
-        tools:layout="@layout/fragment_transaction_history" />
+        tools:layout="@layout/fragment_transaction_history" >
+        <action
+            android:id="@+id/action_transactionHistory_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/ranking_page"
         android:name="com.example.HAHA.Fragments.LeaderboardFragment"
@@ -28,13 +47,32 @@
         tools:layout="@layout/fragment_leaderboard" >
         <action
             android:id="@+id/action_ranking_page_to_detailsFragment2"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/paymentPage"
         android:name="com.example.HAHA.Fragments.PaymentFragment"
         android:label="fragment_payment_page"
-        tools:layout="@layout/fragment_payment_page" />
+        tools:layout="@layout/fragment_payment_page" >
+        <action
+            android:id="@+id/action_paymentPage_to_topupPage"
+            app:destination="@id/topupPage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_paymentPage_to_homeFragment2"
+            app:destination="@id/homeFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
     <fragment
         android:id="@+id/loginPage"
         android:name="com.example.HAHA.LoginFragment"
@@ -42,10 +80,18 @@
         tools:layout="@layout/fragment_login_page" >
         <action
             android:id="@+id/action_loginPage_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
+            app:destination="@id/homeFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/action_loginPage_to_signupPage"
-            app:destination="@id/signupPage" />
+            app:destination="@id/signupPage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/signupPage"
@@ -54,7 +100,11 @@
         tools:layout="@layout/fragment_signup_page" >
         <action
             android:id="@+id/action_signupPage_to_loginPage"
-            app:destination="@id/loginPage" />
+            app:destination="@id/loginPage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/explorePage"
@@ -73,10 +123,18 @@
         tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_detailsFragment_to_paymentPage"
-            app:destination="@id/paymentPage" />
+            app:destination="@id/paymentPage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_detailsFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/jobPosting"
@@ -95,6 +153,23 @@
         tools:layout="@layout/fragment_chat_list" >
         <action
             android:id="@+id/action_chatListFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/withdrawFragment"
+        android:name="com.example.HAHA.Fragments.WithdrawFragment"
+        android:label="WithdrawFragment"
+        tools:layout="@layout/fragment_withdraw">
+        <action
+            android:id="@+id/action_withdrawFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 </navigation>

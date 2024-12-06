@@ -156,8 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Password Requires AT LEAST\n• 8 Characters\n• One capital letter\n• One number
-                \nMAX CHARACTERS: 16\nONLY ALPHABETS (a/A-z/Z) and NUMBERS (0-9)"
+                android:text="@string/passReq"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
