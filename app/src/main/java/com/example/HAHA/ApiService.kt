@@ -70,4 +70,7 @@ interface ApiService {
 
     @POST("/api/posting/purchaseService")
     suspend fun purchaseService(@Body purchaseData: PurchaseData): Response<ApiResponse>
+
+    @POST("/api/{userId}transferConfirm")
+    suspend fun transferConfirm(@Path("userId") userId: Int): Response<ApiResponse>
 }

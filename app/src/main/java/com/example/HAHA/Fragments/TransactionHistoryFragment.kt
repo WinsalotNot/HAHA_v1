@@ -77,12 +77,12 @@ class TransactionHistoryFragment : Fragment() {
         // No filtering applied, just pass the list directly to the adapter
         recyclerAdapter.submitList(rankingList)
 
-        // Set onItemClick listener for item clicks
-        recyclerAdapter.onItemClick = { transactionItem ->
+        // Add item click listener
+        recyclerAdapter.onItemClick = { rankingItem ->
             val bundle = Bundle().apply {
-                putParcelable("transactionData", transactionItem)
+                putParcelable("rankingData", rankingItem)
             }
-            findNavController().navigate(R.id.action_transactionHistory_to_detailsFragment, bundle)
+            findNavController().navigate(R.id.action_transactionHistory_to_detailHistoryFragment, bundle)
         }
     }
 

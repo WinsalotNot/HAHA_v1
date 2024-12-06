@@ -18,7 +18,8 @@ data class PostingData(
     val creatorid: Int,
     val img: String,
     @SerializedName("completed") val isCompleted: Boolean,
-    @SerializedName("bought") val isBought: Boolean
+    @SerializedName("bought") val isBought: Boolean,
+    val purchasedfor: Float
 ) : Parcelable, Comparable<PostingData> {
 
     override fun compareTo(other: PostingData): Int {
@@ -41,6 +42,7 @@ data class PostingData(
         parcel.writeInt(creatorid)
         parcel.writeBoolean(isCompleted)
         parcel.writeBoolean(isBought)
+        parcel.writeFloat(purchasedfor)
     }
 
     override fun describeContents(): Int {
@@ -63,7 +65,8 @@ data class PostingData(
                 parcel.readInt(),
                 parcel.readString() ?: "", // Read img as ByteArray
                 parcel.readBoolean(),
-                parcel.readBoolean()
+                parcel.readBoolean(),
+                parcel.readFloat()
             )
         }
 

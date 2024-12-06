@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_transactionHistory_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_transactionHistory_to_detailHistoryFragment"
+            app:destination="@id/detailHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/ranking_page"
@@ -171,5 +174,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detailHistoryFragment"
+        android:name="com.example.HAHA.DetailHistoryFragment"
+        android:label="fragment_detail_history"
+        tools:layout="@layout/fragment_detail_history" >
+        <action
+            android:id="@+id/action_detailHistoryFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
     </fragment>
 </navigation>
