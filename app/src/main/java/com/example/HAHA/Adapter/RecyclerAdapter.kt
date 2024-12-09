@@ -26,12 +26,9 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
 
     var onItemClick: ((PostingData) -> Unit)? = null
 
-    // Override submitList to deduplicate items by creatorid for Leaderboard
     override fun submitList(list: List<PostingData>?) {
-        val uniqueList = when (design.lowercase()) {
-            "leaderboard", "transactionhistory" -> list?.distinctBy { it.creatorid }
-            else -> list
-        }
+        Log.d("Submit List", "Filtered List: $list")
+        super.submitList(null) // Ensures RecyclerView clears previous state
         super.submitList(list)
     }
 
@@ -97,13 +94,13 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
             htextStatus.text = when {
                 rankingData.isCompleted -> "Completed" // Check this first as it's a final state
                 rankingData.isBought -> "Ongoing"
-                else -> "Not History"
+                else -> "Your Employer"
             }
             Log.d("hTextStatus", "Status: ${htextStatus.text}")
             htextStatusDot.backgroundTintList = when {
                 rankingData.isCompleted -> ColorStateList.valueOf(Color.parseColor("#00FF00")) // Green for completed
                 rankingData.isBought -> ColorStateList.valueOf(Color.parseColor("#FF0000")) // Red for ongoing
-                else -> ColorStateList.valueOf(Color.GRAY)
+                else -> ColorStateList.valueOf(Color.BLACK)
             }
             Log.d("hTextStatusDot", "Color: ${htextStatusDot.backgroundTintList.toString()}")
             itemView.setOnClickListener { onItemClick?.invoke(rankingData) }
@@ -113,21 +110,11 @@ class RecyclerAdapter(private val design: String) : ListAdapter<PostingData, Rec
     // ViewHolder for Leaderboard Design
     class LeaderboardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textName: TextView = itemView.findViewById(R.id.R_textName)
-        private val textTitle: TextView = itemView.findViewById(R.id.R_textTitle)
-        private val textDesc: TextView = itemView.findViewById(R.id.R_textDesc)
         private val textRank: TextView = itemView.findViewById(R.id.R_textRank)
-        private val textRating: TextView = itemView.findViewById(R.id.R_textRating)
-        private val textReview: TextView = itemView.findViewById(R.id.R_textReview)
-        private val textCat: TextView = itemView.findViewById(R.id.R_textCat)
 
         fun bind(rankingData: PostingData, onItemClick: ((PostingData) -> Unit)?) {
             textName.text = rankingData.username.trim('"')
-            textTitle.text = rankingData.title.trim('"')
-            textDesc.text = (if (rankingData.shortDesc.length > 95) rankingData.shortDesc.take(95) + "..." else rankingData.shortDesc).trim('"')
             textRank.text = rankingData.rank.trim('"')
-            textRating.text = rankingData.rating.toString()
-            textReview.text = rankingData.review.toString()
-            textCat.text = rankingData.cat.trim('"')
 
             itemView.setOnClickListener { onItemClick?.invoke(rankingData) }
         }

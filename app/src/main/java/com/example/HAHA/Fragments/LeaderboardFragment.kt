@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.HAHA.Adapter.LeaderboardAdapter
 import com.example.HAHA.Adapter.RecyclerAdapter
 import com.example.HAHA.Data.PostingData
+import com.example.HAHA.Data.RankResponse
 import com.example.HAHA.MainActivity
 import com.example.HAHA.R
 import com.example.HAHA.SharedRecyclerViewModel
@@ -24,12 +27,12 @@ class LeaderboardFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var sharedRecyclerViewModel: SharedRecyclerViewModel
-    private lateinit var uiViewModel: UIViewModel
-    private lateinit var recyclerAdapter: RecyclerAdapter
-    private lateinit var categorySpinner: Spinner
+    private val uiViewModel: UIViewModel by activityViewModels()
+    private lateinit var recyclerAdapter: LeaderboardAdapter
+    private lateinit var orderSpinner: Spinner
     private lateinit var rankSpinner: Spinner
 
-    private var selectedCategory: String = "Set Category:"
+    private var selectedSortOrder: String = "Set Order:"
     private var selectedRank: String = "Set Rank:"
 
     override fun onCreateView(
@@ -39,16 +42,15 @@ class LeaderboardFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
 
         // Initialize ViewModel
-        uiViewModel = ViewModelProvider(requireActivity()).get(UIViewModel::class.java)
         sharedRecyclerViewModel = ViewModelProvider(requireActivity())[SharedRecyclerViewModel::class.java]
 
         // Set up RecyclerView
         recyclerView = view.findViewById(R.id.leaderboard_recyclerView)
         // Initialize RankingAdapter without passing data in constructor
-        recyclerAdapter = RecyclerAdapter("leaderboard")
+        recyclerAdapter = LeaderboardAdapter()
 
         // Set up categorySpinner
-        categorySpinner = view.findViewById(R.id.categorySpinner)
+        orderSpinner = view.findViewById(R.id.orderSpinner)
         // Set up rankSpinner
         rankSpinner = view.findViewById(R.id.rankSpinner)
         return view
@@ -75,15 +77,15 @@ class LeaderboardFragment : Fragment() {
 
         ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.categories,
+            R.array.order,
             R.layout.spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            categorySpinner.adapter = adapter
+            orderSpinner.adapter = adapter
         }
-        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        orderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedCategory = categorySpinner.selectedItem.toString()
+                selectedSortOrder = orderSpinner.selectedItem.toString()
                 sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
             }
 
@@ -108,27 +110,36 @@ class LeaderboardFragment : Fragment() {
         }
     }
 
-    private fun applyFilters(rankingList: List<PostingData>) {
+    private fun applyFilters(rankingList: List<RankResponse>) {
+        // Define the rank order mapping (ascending)
+        val rankOrder = mapOf(
+            "E" to 1,
+            "D" to 2,
+            "C" to 3,
+            "B" to 4,
+            "A" to 5,
+            "S" to 6
+        )
+
+        // Filter the list based on selected category and rank
         val filteredList = rankingList.filter { ranking ->
-            (selectedCategory == "Set Category:" || ranking.cat.contains(selectedCategory, ignoreCase = true)) &&
-                    (selectedRank == "Set Rank:" || ranking.rank == selectedRank)
-        }.sortedByDescending { it.rating } // Sort by rating in descending order
-
-        // Use submitList to update the data in the adapter
-        recyclerAdapter.submitList(filteredList)
-
-        // Set onItemClick listener
-        recyclerAdapter.onItemClick = { rankingItem ->
-            val bundle = Bundle().apply {
-                putParcelable("rankingData", rankingItem)
-            }
-            findNavController().navigate(R.id.action_ranking_page_to_detailsFragment2, bundle)
+            (selectedRank == "Set Rank:" || ranking.rank.trim('"') == selectedRank)
         }
+
+        // Sort the list based on the selected rank order (ascending or descending)
+        val sortedList = when (selectedSortOrder) {
+            "Ascending" -> filteredList.sortedBy { rankOrder[it.rank.trim()] ?: Int.MAX_VALUE } // Ascending by rank order
+            "Descending" -> filteredList.sortedByDescending { rankOrder[it.rank.trim()] ?: Int.MAX_VALUE } // Descending by rank order
+            else -> filteredList // If no sort order selected, return the filtered list as is
+        }
+
+        // Update the adapter with the sorted list
+        recyclerAdapter.submitList(sortedList)
     }
 
     override fun onResume() {
         super.onResume()
         Log.d("LeaderboardFragment", "onResume called: Loading Data...")
-        sharedRecyclerViewModel.loadData()
+        sharedRecyclerViewModel.loadRanking()
     }
 }

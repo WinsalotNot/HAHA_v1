@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.HAHA.Data.AvailabilityResponse
+import com.example.HAHA.Data.WithdrawResponse
+import com.example.HAHA.Data.XpResponse
 import com.example.HAHA.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +25,10 @@ class UIViewModel(application: Application) : AndroidViewModel(application) {
 
     val walletAmount = MutableLiveData<Double>()
     val availability = MutableLiveData<String>()
-    val hasbenefacc = MutableLiveData<Boolean>()
+    val withdrawQuota = MutableLiveData<Double>()
+    val withdrawTries = MutableLiveData<Int>()
+    val userRank = MutableLiveData<String>()
+    val userXp = MutableLiveData<Int>()
 
     val errorMessage = MutableLiveData<String>()
     val sharedPreferences = getApplication<Application>().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
@@ -96,6 +101,74 @@ class UIViewModel(application: Application) : AndroidViewModel(application) {
             } catch (e: Exception) {
                 errorMessage.postValue("Error: ${e.localizedMessage}")
                 Log.e("UIViewModel", "Error for getAvailability(): ${e.localizedMessage}")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    fun fetchWithdrawQuotaAndTries() {
+        _isLoading.postValue(true)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val userId = sharedPreferences.getString("USER_ID", null)
+
+                if (userId != null) {
+                    // Call API to get availability
+                    val response: Response<WithdrawResponse> = RetrofitInstance.apiService.getWithdrawData(userId.toInt())
+
+                    if (response.isSuccessful) {
+                        val withQuota = response.body()?.withdrawQuota ?: 0.0
+                        val withTries = response.body()?.withdrawTries ?: 0
+                        withdrawQuota.postValue(withQuota)
+                        withdrawTries.postValue(withTries)
+                        Log.e("UIViewModel", "Withdraw Data successfully fetched: $withQuota and $withTries")
+                    } else {
+                        errorMessage.postValue("Failed to fetch withdraw data")
+                        Log.e("UIViewModel", "Response Not Successful for getWithdrawData()")
+                    }
+                } else {
+                    errorMessage.postValue("User ID does not exist!")
+                    Log.e("UIViewModel", "UserID NULL for getWithdrawData()")
+                }
+            } catch (e: Exception) {
+                errorMessage.postValue("Error: ${e.localizedMessage}")
+                Log.e("UIViewModel", "Error for getWithdrawData(): ${e.localizedMessage}")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    fun fetchXpAndRank() {
+        _isLoading.postValue(true)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val userId = sharedPreferences.getString("USER_ID", null)
+
+                if (userId != null) {
+                    // Call API to get availability
+                    val response: Response<XpResponse> = RetrofitInstance.apiService.getXp(userId.toInt())
+
+                    if (response.isSuccessful) {
+                        val xp = response.body()?.xp ?: 0
+                        val rank = response.body()?.rank ?: "U"
+                        userXp.postValue(xp)
+                        userRank.postValue(rank)
+                        Log.e("UIViewModel", "Xp and Rank successfully fetched: $xp and $rank")
+                    } else {
+                        errorMessage.postValue("Failed to fetch Xp and Rank")
+                        Log.e("UIViewModel", "Response Not Successful for getXp()")
+                    }
+                } else {
+                    errorMessage.postValue("User ID does not exist!")
+                    Log.e("UIViewModel", "UserID NULL for getXp()")
+                }
+            } catch (e: Exception) {
+                errorMessage.postValue("Error: ${e.localizedMessage}")
+                Log.e("UIViewModel", "Error for getXp(): ${e.localizedMessage}")
             } finally {
                 _isLoading.postValue(false)
             }

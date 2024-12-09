@@ -1,14 +1,12 @@
 package com.example.HAHA
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.HAHA.Data.PostingData
+import com.example.HAHA.Data.RankResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,12 +17,14 @@ class SharedRecyclerViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    private val _rankingList = MutableLiveData<List<PostingData>>()
-    val rankingList: LiveData<List<PostingData>> get() = _rankingList
-    val dataUpdated = MutableLiveData<Boolean>(false)  // Notify observers when data is updated
+    private val _rankingList = MutableLiveData<List<RankResponse>>()
+    val rankingList: LiveData<List<RankResponse>> get() = _rankingList
 
-    // A list to hold unfiltered data for re-filtering when needed
-    private var unfilteredRankingList: List<PostingData> = emptyList()
+    private val _exploreList = MutableLiveData<List<PostingData>>()
+    val exploreList: LiveData<List<PostingData>> get() = _exploreList
+
+    private val _historyList = MutableLiveData<List<PostingData>>()
+    val historyList: LiveData<List<PostingData>> get() = _historyList
 
     // Load initial data (this could be a network call or database fetch)
     fun loadData() {
@@ -40,8 +40,7 @@ class SharedRecyclerViewModel : ViewModel() {
 
                     withContext(Dispatchers.Main) {
                         // Update the LiveData with the fetched posts
-                        unfilteredRankingList = posts // Store the decoded posts in the unfiltered list
-                        _rankingList.value = posts // Update the LiveData
+                        _exploreList.value = posts // Update the LiveData
                     }
                     Log.d("SharedRecyclerViewModel", "Posts fetched successfully")
                 } else {
@@ -69,15 +68,42 @@ class SharedRecyclerViewModel : ViewModel() {
 
                     withContext(Dispatchers.Main) {
                         // Update the LiveData with the fetched posts
-                        unfilteredRankingList = posts // Store the decoded posts in the unfiltered list
-                        _rankingList.value = posts // Update the LiveData
+                        _historyList.value = posts // Update the LiveData
                     }
-                    Log.d("SharedRecyclerViewModel", "Posts fetched successfully")
+                    Log.d("SharedRecyclerViewModel", "Transaction fetched successfully")
                 } else {
-                    Log.e("SharedRecyclerViewModel", "Failed to load posts: ${response.code()}")
+                    Log.e("SharedRecyclerViewModel", "Failed to load transactions: ${response.code()}")
                 }
             } catch (e: Exception) {
-                Log.e("SharedRecyclerViewModel", "Error fetching posts: ${e.message}")
+                Log.e("SharedRecyclerViewModel", "Error fetching transactions: ${e.message}")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    // Load initial data (this could be a network call or database fetch)
+    fun loadRanking() {
+        _isLoading.postValue(true)
+        // Start a coroutine to load data asynchronously
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Make the network call to fetch the posts
+                val response = RetrofitInstance.apiService.getAllUserByRank()
+                // Check if the response is successful
+                if (response.isSuccessful && response.body() != null) {
+                    val posts = response.body()!!
+
+                    withContext(Dispatchers.Main) {
+                        // Update the LiveData with the fetched posts
+                        _rankingList.value = posts // Update the LiveData
+                    }
+                    Log.d("SharedRecyclerViewModel", "Ranks fetched successfully")
+                } else {
+                    Log.e("SharedRecyclerViewModel", "Failed to load rank: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("SharedRecyclerViewModel", "Error fetching rank: ${e.message}")
             } finally {
                 _isLoading.postValue(false)
             }

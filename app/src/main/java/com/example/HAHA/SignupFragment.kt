@@ -33,6 +33,7 @@ class SignupFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_signup_page, container, false)
+        (requireActivity() as MainActivity).hideLoading()
 
         // Initialize FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -76,7 +77,7 @@ class SignupFragment : Fragment() {
             }
 
             // Create Firebase user and send email verification
-            verifyEmailAndRegister(email, password, name, address)
+            verifyEmailAndRegister(email, password, name, address) // TODO: THIS IS FOR TESTING
         }
 
         return view

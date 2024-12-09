@@ -41,6 +41,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login_page, container, false)
+        (requireActivity() as MainActivity).hideLoading()
 
         // Initialize views
         emailEditText = view.findViewById(R.id.emailInput)
@@ -217,7 +218,7 @@ class LoginFragment : Fragment() {
                     val responseBody = response.body()
 
                     if (responseBody != null) {
-                        Log.d("APIResponse", "User ID: ${responseBody.userId}, Name: ${responseBody.name}, Address: ${responseBody.address}")
+                        Log.d("APIResponse", "User ID: ${responseBody.userId}, Name: ${responseBody.name}, Address: ${responseBody.address}, Rank: ${responseBody.token}")
                     }
                     if (responseBody != null && responseBody.success) {
                         // Login successful

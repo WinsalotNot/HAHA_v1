@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
         uiViewModel.availability.observe(this) {
-            canNavigateToJobPosting = if (it.lowercase() == "Not Available") {
+            canNavigateToJobPosting = if (it.lowercase() == "not available") {
                 true
             } else {
                 false
@@ -75,12 +76,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         // Set up NavigationView with NavController
         navigationViewDrawer.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.transactionHistoryDrawer -> {
-                    navController.navigate(R.id.transactionHistory)
-                }
                 R.id.logoutDrawer -> {
-                    // Clear the backstack and navigate to login
-                    navController.popBackStack(R.id.loginPage, false)  // Clear the backstack
+                    navController.popBackStack(R.id.loginPage, false)
                     navController.navigate(R.id.loginPage)
                 }
                 R.id.withdraw_wallet -> {
@@ -115,16 +112,16 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val navhostfragmentView = findViewById<View>(R.id.nav_host_fragment)
             when (destination.id) {
-                R.id.loginPage, R.id.signupPage, R.id.topupPage, R.id.detailsFragment -> {
+                R.id.loginPage, R.id.signupPage, R.id.topupPage, R.id.detailsFragment, R.id.withdrawFragment, R.id.detailHistoryFragment -> {
+
+                    // LOCK DRAWERLAYOUT
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
                     ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
                         val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
                         v.setPadding(0, 0, 0, 0)
                         insets
                     }
-
-                    // LOCK DRAWERLAYOUT
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
                     // Hide the BottomNavigationView
                     bottomNavigationView.z = -1f // Push it behind
@@ -137,7 +134,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                     navhostfragmentView.setPadding(0, 0, 0, 0)
 
                 }
-                else -> {
+                R.id.homeFragment2 -> {
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)  // Unlock when necessary
+
                     // Restore padding and the BottomNavigationView visibility for other fragments
                     ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
                         val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -145,7 +144,26 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                         insets
                     }
 
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)  // Unlock when necessary
+                    // Add Padding back to maintain the bottom space
+                    navhostfragmentView.setPadding(0, 0, 0, 60)
+
+                    // Bring the BottomNavigationView back into view
+                    bottomNavigationView.z = 1f // Bring it back to the foreground
+                    bottomNavigationView.animate()
+                        .translationY(0f) // Reset translation
+                        .setDuration(300)
+                        .start()
+                }
+                else -> {
+                    // LOCK DRAWERLAYOUT
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+                    // Restore padding and the BottomNavigationView visibility for other fragments
+                    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+                        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                        v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                        insets
+                    }
 
                     // Add Padding back to maintain the bottom space
                     navhostfragmentView.setPadding(0, 0, 0, 60)
@@ -189,6 +207,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         findViewById<ProgressBar>(R.id.loadingWheel).isIndeterminate = false
         findViewById<ConstraintLayout>(R.id.loadingTint).visibility = View.GONE
         findViewById<ProgressBar>(R.id.loadingWheel).visibility = View.GONE
+    }
+
+    fun bottomnavpicker(which : Int) {
+        bottomNavigationView.selectedItemId = which
     }
 }
 

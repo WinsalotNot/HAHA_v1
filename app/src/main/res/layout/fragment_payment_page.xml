@@ -35,13 +35,10 @@
             android:layout_weight="1"
             android:gravity="bottom"
             android:paddingStart="20dp"
-            android:autoSizeMaxTextSize="35sp"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeStepGranularity="1sp"
-            android:autoSizeTextType="uniform"
+            android:textSize="25sp"
+            android:maxLines="1"
             android:text="Rp69.690,00"
-            android:textColor="#FFFFFF"
-            android:textSize="35sp" />
+            android:textColor="#FFFFFF" />
 
         <!-- top up button -->
         <LinearLayout

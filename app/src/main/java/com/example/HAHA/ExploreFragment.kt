@@ -38,6 +38,7 @@ class ExploreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_explore_page, container, false)
+        (requireActivity() as MainActivity).hideLoading()
 
         // Initialize ViewModel
         sharedRecyclerViewModel = ViewModelProvider(requireActivity())[SharedRecyclerViewModel::class.java]
@@ -49,7 +50,7 @@ class ExploreFragment : Fragment() {
         // Set up RecyclerView
         recyclerView = view.findViewById(R.id.explore_recyclerView)
         // Initialize the adapter without passing any data
-        recyclerAdapter = RecyclerAdapter("Explore")
+        recyclerAdapter = RecyclerAdapter("explore")
 
         return view
     }
@@ -58,14 +59,13 @@ class ExploreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
         recyclerView.adapter = recyclerAdapter
 
         // Observe the data from the ViewModel
-        sharedRecyclerViewModel.rankingList.observe(viewLifecycleOwner) { rankingList ->
-            Log.d("ExploreFragment", "Data fetched: $rankingList")
-            Log.d("Explore Fragment", "Data size for RecyclerView: ${rankingList.size}")
-            applyFilters(rankingList)  // When data is fetched, apply filters
+        sharedRecyclerViewModel.exploreList.observe(viewLifecycleOwner) { exploreList ->
+            Log.d("ExploreFragment", "Data fetched: $exploreList")
+            Log.d("Explore Fragment", "Data size for RecyclerView: ${exploreList.size}")
+            applyFilters(exploreList)  // When data is fetched, apply filters
         }
 
         sharedRecyclerViewModel.isLoading.observe(viewLifecycleOwner) {
@@ -99,7 +99,7 @@ class ExploreFragment : Fragment() {
         locationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedLocation = locationSpinner.selectedItem.toString()
-                sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
+                sharedRecyclerViewModel.exploreList.value?.let { applyFilters(it) }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -108,7 +108,7 @@ class ExploreFragment : Fragment() {
         rankSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedRank = rankSpinner.selectedItem.toString()
-                sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
+                sharedRecyclerViewModel.exploreList.value?.let { applyFilters(it) }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -120,7 +120,7 @@ class ExploreFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 searchQuery = s.toString().lowercase()
-                sharedRecyclerViewModel.rankingList.value?.let { applyFilters(it) }
+                sharedRecyclerViewModel.exploreList.value?.let { applyFilters(it) }
             }
         })
 

@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +38,7 @@ class TopupFragment : Fragment() {
     private val CLIENT_KEY = BuildConfig.CLIENT_KEY
     private val BASE_URL = BuildConfig.BASE_URL
     private lateinit var backbutton : ImageButton
-    private val uiViewModel: UIViewModel by viewModels()
+    private val uiViewModel: UIViewModel by activityViewModels()
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -55,6 +56,7 @@ class TopupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_topup_page, container, false)
+        (requireActivity() as MainActivity).hideLoading()
 
         val topupConfirmButton = view.findViewById<Button>(R.id.topup_confirm)
         val amountInput = view.findViewById<EditText>(R.id.amount)

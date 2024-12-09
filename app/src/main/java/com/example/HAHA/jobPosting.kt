@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,10 @@ import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.HAHA.ViewModel.UIViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +31,7 @@ import java.io.InputStream
 class jobPosting : Fragment() {
     private var selectedImageUri: Uri? = null
     private lateinit var sharedRecyclerViewModel: SharedRecyclerViewModel
+    private val uiViewModel: UIViewModel by activityViewModels()
     private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +48,18 @@ class jobPosting : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        uiViewModel.fetchXpAndRank()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_job_posting, container, false)
+        val view = inflater.inflate(R.layout.fragment_job_posting, container, false)
+        (requireActivity() as MainActivity).hideLoading()
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,6 +91,11 @@ class jobPosting : Fragment() {
             requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val username = sharedPreferences.getString("USER_NAME", null)
         val userid: Int = sharedPreferences.getString("USER_ID", null)?.toInt() ?: 0
+        var rank = "U"
+        uiViewModel.userRank.observe(viewLifecycleOwner) {
+            Log.d("JobPostingFragment", "Received rank: $it")
+            rank = it
+        }
         var accAddress: String? = null.toString()
         val currentUser = FirebaseAuth.getInstance().currentUser
         val creatorId = username
@@ -103,6 +120,7 @@ class jobPosting : Fragment() {
         }
 
         postJobbtn.setOnClickListener {
+            (requireActivity() as MainActivity).showLoading()
             val name = username ?: "unknown"
             val address = accAddress ?: enteredAddr.text.toString()
             val service = enteredService.text.toString()
@@ -110,18 +128,21 @@ class jobPosting : Fragment() {
             val desc = enteredDesc.text.toString()
             val fee = enteredFee.text.toString().toFloatOrNull()
             val category = categorySpinner.selectedItem.toString()
+            val inputRank = rank
 
             if (name.isEmpty() || address.isEmpty() || service.isEmpty() ||
                 shortDesc.isEmpty() || desc.isEmpty() || fee == null || category == "Set Category:"
             ) {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
                     .show()
+                (requireActivity() as MainActivity).hideLoading()
                 return@setOnClickListener
             }
 
             if (selectedImageUri == null) {
                 Toast.makeText(requireContext(), "Please select an image", Toast.LENGTH_SHORT)
                     .show()
+                (requireActivity() as MainActivity).hideLoading()
                 return@setOnClickListener
             }
 
@@ -140,7 +161,7 @@ class jobPosting : Fragment() {
                         name = name,
                         title = service,
                         description = desc,
-                        rank = "A",
+                        rank = inputRank,
                         rating = 0.0f,
                         review = 0,
                         addr = address,
@@ -155,17 +176,22 @@ class jobPosting : Fragment() {
                             if (response.body()?.success == true) {
                                 Toast.makeText(context, "Job Posted Successfully!", Toast.LENGTH_SHORT)
                                     .show()
+                                (requireActivity() as MainActivity).hideLoading()
+                                findNavController().navigate(R.id.action_jobPosting_to_homeFragment2)
                             } else {
                                 Toast.makeText(context, response.body()?.message ?: "User Posted Already", Toast.LENGTH_SHORT)
                                     .show()
+                                (requireActivity() as MainActivity).hideLoading()
                             }
                         } else {
                             Toast.makeText(context, "Error posting job", Toast.LENGTH_SHORT).show()
+                            (requireActivity() as MainActivity).hideLoading()
                         }
                     }
                 }
             } else {
                 Toast.makeText(context, "Failed to get image bytes", Toast.LENGTH_SHORT).show()
+                (requireActivity() as MainActivity).hideLoading()
             }
         }
     }

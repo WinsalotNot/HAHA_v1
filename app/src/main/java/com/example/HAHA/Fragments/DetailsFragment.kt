@@ -62,13 +62,13 @@ class DetailsFragment : Fragment() {
             val imageView: ImageView = view.findViewById(R.id.DProfilePic) // Assuming this is your ImageView
 
             // Set the values from postingData
-            name.text = postingData.username
-            title.text = postingData.title
+            name.text = postingData.username.trim('"')
+            title.text = postingData.title.trim('"')
             description.text = postingData.description
-            rank.text = postingData.rank
+            rank.text = postingData.rank.trim('"')
             rating.text = postingData.rating.toString()  // Convert Float to String
             review.text = postingData.review.toString()  // Convert Int to String
-            addr.text = postingData.addr
+            addr.text = postingData.addr.trim('"')
             fee.text = NumberFormat.getNumberInstance(Locale("in", "ID")).format(postingData.fee)
 
             // Decode the base64-encoded image string to a Bitmap

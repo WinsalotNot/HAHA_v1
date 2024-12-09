@@ -15,4 +15,19 @@ data class AvailabilityResponse(
     val hasBenefAcc: Boolean
 )
 
+data class RankResponse(
+    val rank: String,
+    val name: String
+)
+
+data class WithdrawResponse(
+    val withdrawQuota: Double,
+    val withdrawTries: Int
+)
+
+data class XpResponse(
+    val rank: String,
+    val xp: Int
+)
+
 

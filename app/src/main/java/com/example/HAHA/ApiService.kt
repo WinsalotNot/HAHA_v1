@@ -7,8 +7,11 @@ import com.example.HAHA.Data.PaymentRequest
 import com.example.HAHA.Data.PayoutData
 import com.example.HAHA.Data.PostingData
 import com.example.HAHA.Data.PurchaseData
+import com.example.HAHA.Data.RankResponse
 import com.example.HAHA.Data.TransferData
 import com.example.HAHA.Data.User
+import com.example.HAHA.Data.WithdrawResponse
+import com.example.HAHA.Data.XpResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -36,6 +39,12 @@ interface ApiService {
 
     @GET("/api/availability/{userId}getAvailability")
     suspend fun getAvailability(@Path("userId") userId: Int): Response<AvailabilityResponse>
+
+    @GET("/api/withdrawdata/{userId}getWithdrawData")
+    suspend fun getWithdrawData(@Path("userId") userId: Int): Response<WithdrawResponse>
+
+    @GET("/api/xp/{userId}getXp")
+    suspend fun getXp(@Path("userId") userId: Int): Response<XpResponse>
 
     @Multipart
     @POST("/api/posting/create")
@@ -73,4 +82,7 @@ interface ApiService {
 
     @POST("/api/{userId}transferConfirm")
     suspend fun transferConfirm(@Path("userId") userId: Int): Response<ApiResponse>
+
+    @GET("/api/rank/getAllUserByRank")
+    suspend fun getAllUserByRank(): Response<List<RankResponse>>
 }

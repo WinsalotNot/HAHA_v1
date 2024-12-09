@@ -47,7 +47,7 @@
                 android:paddingHorizontal="10dp">
 
                 <Spinner
-                    android:id="@+id/categorySpinner"
+                    android:id="@+id/orderSpinner"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -93,7 +93,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/leaderboard_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

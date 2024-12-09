@@ -33,7 +33,6 @@ class TransactionHistoryFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_transaction_history, container, false)
 
-
         // Initialize ViewModel
         sharedRecyclerViewModel = activityViewModels<SharedRecyclerViewModel>().value
 
@@ -55,9 +54,9 @@ class TransactionHistoryFragment : Fragment() {
         recyclerView.adapter = recyclerAdapter
 
         // Observe data from ViewModel
-        sharedRecyclerViewModel.rankingList.observe(viewLifecycleOwner, Observer { rankingList ->
+        sharedRecyclerViewModel.historyList.observe(viewLifecycleOwner, Observer { historyList ->
             // Call applyFilters with the list (no filtering logic for now)
-            applyFilters(rankingList)
+            applyFilters(historyList)
         })
 
         sharedRecyclerViewModel.isLoading.observe(viewLifecycleOwner) {
@@ -68,21 +67,27 @@ class TransactionHistoryFragment : Fragment() {
             }
         }
 
-        // Trigger data loading
-        sharedRecyclerViewModel.loadDataHistory(userid = userid)
     }
 
     // Handle data and update the adapter (without filtering)
-    private fun applyFilters(rankingList: List<PostingData>) {
-        // No filtering applied, just pass the list directly to the adapter
-        recyclerAdapter.submitList(rankingList)
+    private fun applyFilters(historyList: List<PostingData>) {
+
+        // Separate items based on the conditions
+        val boughtNotCompleted = historyList.filter { it.isBought && !it.isCompleted }
+        val completedItems = historyList.filter { it.isCompleted }
+
+        // Combine the lists with the desired order
+        val sortedList = boughtNotCompleted + completedItems
+        recyclerAdapter.submitList(sortedList)
 
         // Add item click listener
         recyclerAdapter.onItemClick = { rankingItem ->
-            val bundle = Bundle().apply {
-                putParcelable("rankingData", rankingItem)
+            if (rankingItem.isBought || rankingItem.isCompleted) {
+                val bundle = Bundle().apply {
+                    putParcelable("rankingData", rankingItem)
+                }
+                findNavController().navigate(R.id.action_transactionHistory_to_detailHistoryFragment, bundle)
             }
-            findNavController().navigate(R.id.action_transactionHistory_to_detailHistoryFragment, bundle)
         }
     }
 

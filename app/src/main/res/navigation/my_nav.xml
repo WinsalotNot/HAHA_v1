@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/loginPage">
     <fragment
         android:id="@+id/homeFragment2"
         android:name="com.example.HAHA.Fragments.HomeFragment"
@@ -143,7 +143,15 @@
         android:id="@+id/jobPosting"
         android:name="com.example.HAHA.jobPosting"
         android:label="fragment_job_posting"
-        tools:layout="@layout/fragment_job_posting" />
+        tools:layout="@layout/fragment_job_posting" >
+        <action
+            android:id="@+id/action_jobPosting_to_homeFragment2"
+            app:destination="@id/homeFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.HAHA.ChatFragment"

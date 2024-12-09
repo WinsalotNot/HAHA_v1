@@ -27,6 +27,7 @@ class DetailHistoryFragment : Fragment() {
 
     private lateinit var backButton: ImageButton
     private lateinit var finishButton: Button
+    private lateinit var activity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +35,7 @@ class DetailHistoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_detail_history, container, false)
+        activity = requireActivity() as MainActivity
         return view
     }
 
@@ -51,31 +53,55 @@ class DetailHistoryFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        finishButton.setOnClickListener {
-            // Show loading and make the transfer API call
-            (requireActivity() as MainActivity).showLoading()
-            lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    val response = RetrofitInstance.apiService.transferConfirm(userId = userId)
-                    if (response.isSuccessful && response.body()?.success == true) {
-                        Log.d("Transfer Confirm", response.message())
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), response.body()?.message, Toast.LENGTH_LONG).show()
-                            (requireActivity() as MainActivity).hideLoading()
+        if (postingData != null) {
+            if (!postingData.isCompleted) {
+                finishButton.setOnClickListener {
+                    // Show loading and make the transfer API call
+                    activity.showLoading()
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        try {
+                            val response =
+                                RetrofitInstance.apiService.transferConfirm(userId = userId)
+                            if (response.isSuccessful && response.body()?.success == true) {
+                                Log.d("Transfer Confirm", response.message())
+                                withContext(Dispatchers.Main) {
+                                    activity.hideLoading()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        response.body()?.message,
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    findNavController().navigate(R.id.action_detailHistoryFragment_to_homeFragment2)
+                                    activity.bottomnavpicker(R.id.homeFragment2)
+                                }
+                            } else {
+                                withContext(Dispatchers.Main) {
+                                    activity.hideLoading()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Transfer Failed!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                activity.hideLoading()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error: ${e.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
-                        findNavController().navigate(R.id.action_detailHistoryFragment_to_homeFragment2)
-                    } else {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Transfer Failed!", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
-                        (requireActivity() as MainActivity).hideLoading()
                     }
                 }
+            } else {
+                finishButton.isClickable = false
+                finishButton.text = "Completed"
             }
+        } else {
+            Toast.makeText(requireContext(), "No data available", Toast.LENGTH_SHORT).show()
         }
 
         if (postingData != null) {
@@ -93,13 +119,13 @@ class DetailHistoryFragment : Fragment() {
             val imageView: ImageView = view.findViewById(R.id.DHProfilePic)
 
 
-            name.text = postingData.username
-            title.text = postingData.title
+            name.text = postingData.username.trim('"')
+            title.text = postingData.title.trim('"')
             description.text = postingData.description
-            rank.text = postingData.rank
+            rank.text = postingData.rank.trim('"')
             rating.text = postingData.rating.toString()
             review.text = postingData.review.toString()
-            addr.text = postingData.addr
+            addr.text = postingData.addr.trim('"')
             fee.text = NumberFormat.getNumberInstance(Locale("in", "ID")).format(postingData.fee)
             totalcost.text = NumberFormat.getNumberInstance(Locale("in", "ID")).format(postingData.purchasedfor)
 

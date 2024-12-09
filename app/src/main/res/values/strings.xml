@@ -17,6 +17,7 @@
     <string name="choose_type_payout">Choose Where To Receive Payout</string>
     <string name="forgot_password" translatable="false"><u>Forgot password?</u></string>
     <string name="passReq">Password Requires AT LEAST\n• 8 Characters\n• One capital letter\n• One number \nMAX CHARACTERS: 16\nONLY ALPHABETS (a/A-z/Z) and NUMBERS (0-9)</string>
+    <string name="reminder">A REMINDER:\n\n<u>ONLY TOP UP IF YOU INTEND TO USE IT IN THIS APP</u>\n YOU HAVE BEEN WARNED!</string>
 
     <!--    category spinner-->
     <string-array name="categories">
@@ -61,5 +62,10 @@
         <item>Jakarta Timur</item>
         <item>Jakarta Selatan</item>
         <item>Jakarta Utara</item>
+    </string-array>
+
+    <string-array name="order">
+        <item>Ascending</item>
+        <item>Descending</item>
     </string-array>
 </resources>

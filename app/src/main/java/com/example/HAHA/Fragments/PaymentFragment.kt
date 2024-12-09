@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -48,8 +49,7 @@ class PaymentFragment : Fragment() {
     private lateinit var topupbutton2 : Button
     private lateinit var paymentConfirmedButton : Button
     private var dateSelected: Boolean = false // Flag to track if a date is selected
-
-    private val uiViewModel: UIViewModel by viewModels()
+    private val uiViewModel: UIViewModel by activityViewModels()
 
     override fun onResume() {
         super.onResume()
@@ -190,8 +190,8 @@ class PaymentFragment : Fragment() {
                         if (response.isSuccessful && response.body()?.success == true) {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(requireContext(), "Payment successful!", Toast.LENGTH_LONG).show()
+                                findNavController().navigate(R.id.action_paymentPage_to_homeFragment2)
                             }
-                            findNavController().navigate(R.id.action_paymentPage_to_homeFragment2)
                         } else {
                             val errorMessage = response.body()?.message ?: "Payment failed!"
                             withContext(Dispatchers.Main) {
