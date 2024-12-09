@@ -50,9 +50,9 @@ class ChatFragment : Fragment() {
 
         messagesRecyclerView = view.findViewById(R.id.chatRecyclerView)
 
-        val userId = sharedPreferences.getString("USER_ID", null)
+        val userId = sharedPreferences.getString("USER_ID", "900")
         val userName = sharedPreferences.getString("USER_NAME", null)
-        val creatorId = arguments?.getString("creatorId") ?: "69"
+        val creatorId = arguments?.getInt("creatorId", 66).toString()
         val creatorName = arguments?.getString("name") ?: ""
 
         // Initialize the EditText and Button
