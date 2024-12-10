@@ -12,138 +12,23 @@
         android:padding="20dp">
 
         <LinearLayout
-            android:id="@+id/linearLayout8"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/red_rounded_corners"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:src="@drawable/account_icon" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingVertical="15dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="20dp"
-                        android:gravity="center"
-                        android:text="Andrew Liemarta"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/availabilityIcon_topup"
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/status_dot" />
-
-                    <TextView
-                        android:id="@+id/availabilityText_topup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/avail"
-                        android:textColor="@color/white"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:gravity="center"
-                        android:text="XP"
-                        android:textColor="#FFFFFF"
-                        android:textSize="10sp" />
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="205dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:padding="0dp"
-                        android:progress="80"
-                        android:progressBackgroundTint="@color/white"
-                        android:progressTint="@color/xp_green"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/accountImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/accountNameField" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="400"
-                        android:textColor="#FFFFFF"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:gravity="center"
-                        android:text="/500"
-                        android:textColor="#FFFFFF"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/linearLayout9"
-            android:layout_width="372dp"
-            android:layout_height="558dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="368dp"
+            android:layout_height="628dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/island_bar"
                 android:gravity="center"
                 android:text="Enter your job info"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -286,7 +171,7 @@
             <ImageView
                 android:id="@+id/uploadPic"
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
+                android:layout_height="107dp"
                 android:background="@color/light_gray"
                 android:src="@drawable/upload"
                 android:textSize="15sp" />

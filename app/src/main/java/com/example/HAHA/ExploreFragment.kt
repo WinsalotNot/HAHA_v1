@@ -137,7 +137,7 @@ class ExploreFragment : Fragment() {
         val filteredList = if (isFilteringActive) {
             rankingList.filter { ranking ->
                 (selectedLocation == "Set Location:" || ranking.addr?.contains(selectedLocation, ignoreCase = true) == true) &&
-                        (selectedRank == "Set Rank:" || ranking.rank == selectedRank) &&
+                        (selectedRank == "Set Rank:" || ranking.rank.trim('"') == selectedRank) &&
                         (searchQuery.isEmpty() || ranking.username?.contains(searchQuery, ignoreCase = true) == true ||
                                 ranking.title?.contains(searchQuery, ignoreCase = true) == true ||
                                 ranking.shortDesc?.contains(searchQuery, ignoreCase = true) == true)

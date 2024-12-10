@@ -96,7 +96,7 @@ class jobPosting : Fragment() {
             Log.d("JobPostingFragment", "Received rank: $it")
             rank = it
         }
-        var accAddress: String? = null.toString()
+        var accAddress: String? = null
         val currentUser = FirebaseAuth.getInstance().currentUser
         val creatorId = username
 
