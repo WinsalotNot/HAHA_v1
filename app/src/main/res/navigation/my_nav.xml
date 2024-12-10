@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/loginPage">
+    app:startDestination="@id/explorePage">
     <fragment
         android:id="@+id/homeFragment2"
         android:name="com.example.HAHA.Fragments.HomeFragment"
@@ -192,4 +192,9 @@
             android:id="@+id/action_detailHistoryFragment_to_homeFragment2"
             app:destination="@id/homeFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.example.HAHA.PrivacyFragment"
+        android:label="fragment_privacy"
+        tools:layout="@layout/fragment_privacy" />
 </navigation>

@@ -19,6 +19,56 @@
     <string name="passReq">Password Requires AT LEAST\n• 8 Characters\n• One capital letter\n• One number \nMAX CHARACTERS: 16\nONLY ALPHABETS (a/A-z/Z) and NUMBERS (0-9)</string>
     <string name="reminder">A REMINDER:\n\n<u>ONLY TOP UP IF YOU INTEND TO USE IT IN THIS APP</u>\n YOU HAVE BEEN WARNED!</string>
 
+
+    <string name="privacyText">
+By using HAHA, you agree to the following terms and conditions regarding privacy, security, and user responsibilities.
+We value your trust and are committed to protecting your personal information and ensuring the safety of your transactions
+within the app. This agreement outlines how we handle your data, our limitations of liability, and your responsibilities
+as a user. Please read carefully before proceeding.\n\n
+
+We collect and use your personal information, including but not limited to your name, address, contact details, and payment
+information, for the primary purposes of facilitating transactions, connecting you with service providers, enhancing the user
+experience, and providing customer support. Your data will be used responsibly and will not be shared with third parties
+without your explicit consent, except as required by law or as necessary to provide app-related services. All personal data
+is encrypted and stored securely to prevent unauthorized access.\n\n
+
+As a user, you are solely responsible for safeguarding your account credentials, including your username, password, and any
+authentication information. You must ensure that all information provided to HAHA is accurate, complete, and up-to-date.
+Sharing your login credentials or sensitive account details with others is strictly prohibited and may compromise your
+account\'s security. In the event of any unauthorized access or suspected compromise, you must notify us immediately so we can
+take appropriate action.\n\n
+
+HAHA includes a digital wallet feature designed to offer a convenient method for managing and processing payments within the
+app. While we employ state-of-the-art encryption, fraud detection, and other advanced security measures to protect your funds,
+we are not liable for any losses resulting from theft, unauthorized transactions, user negligence, account compromise, or
+malicious attacks beyond our reasonable control. It is your responsibility to use the digital wallet feature prudently,
+including maintaining the confidentiality of your wallet credentials and monitoring your account for suspicious activity.
+Should you detect any irregularities, you are obligated to report them to our support team without delay for investigation.\n\n
+
+To facilitate payments and other transactions, HAHA may integrate with third-party payment gateways or service providers.
+While we carefully select our partners and ensure they comply with industry-standard data security protocols, we cannot assume
+liability for their practices, operations, or any damages arising from their services. By using HAHA, you acknowledge and
+accept the inherent risks of third-party integrations.\n\n
+
+HAHA connects users with service providers for various offline tasks, including but not limited to babysitting, electrical work,
+house cleaning, and more. While we conduct reasonable background checks and screenings on listed providers, we cannot guarantee
+their reliability, performance, or conduct. Users must exercise their own due diligence when selecting and engaging service
+providers. HAHA is not responsible for any disputes, damages, or issues arising from interactions or transactions between users
+and service providers.\n\n
+
+This agreement may be updated periodically to reflect changes in the app’s features, legal requirements, or company policies.
+Users will be notified of any material updates, and continued use of HAHA after such notifications constitutes acceptance of
+the revised terms. It is your responsibility to review updates to ensure you remain informed about your rights and obligations.\n\n
+
+For questions, concerns, or disputes regarding this agreement, please contact us at [Support Email]. We are committed to
+addressing your inquiries and resolving issues in a timely manner.\n\n
+
+By using HAHA, you acknowledge and agree to these terms, including all disclaimers and limitations of liability. You accept
+full responsibility for your interactions and transactions within the app, and you understand that HAHA provides a platform for
+connecting users with service providers but does not guarantee the quality, security, or outcome of services rendered. If you do
+not agree to these terms, you must discontinue using HAHA immediately.\n\n
+</string>
+
     <!--    category spinner-->
     <string-array name="categories">
         <item>Set Category:</item>

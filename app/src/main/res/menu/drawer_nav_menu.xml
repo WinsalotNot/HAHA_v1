@@ -4,7 +4,7 @@
         android:id="@+id/withdraw_wallet"
         android:title="Withdraw Wallet"/>
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/privacy"
         android:title="Privacy and Security"/>
     <item
         android:id="@+id/logoutDrawer"

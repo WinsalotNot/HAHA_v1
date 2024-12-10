@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                 R.id.withdraw_wallet -> {
                     navController.navigate(R.id.withdrawFragment)
                 }
+                R.id.privacy -> {
+                    navController.navigate(R.id.privacyFragment)
+                }
                 else -> {
                     navController.navigate(R.id.homeFragment2)
                 }
