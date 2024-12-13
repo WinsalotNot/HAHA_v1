@@ -169,8 +169,9 @@
                         android:id="@+id/Drating"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:text="4.5"
+                        android:textAlignment="textEnd"
+                        android:layout_weight="0.1"
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
@@ -178,26 +179,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="/5 ("
+                        android:text="/5"
+                        android:layout_weight="0.2"
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/Dreviews"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="1500"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text=" Reviews)"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 

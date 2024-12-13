@@ -84,7 +84,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
                     navController.navigate(R.id.withdrawFragment)
                 }
                 R.id.privacy -> {
-                    navController.navigate(R.id.privacyFragment)
+                    val bundle = Bundle().apply {
+                        putBoolean("hideCheckboxAndButton", true) // Pass the flag
+                    }
+                    navController.navigate(R.id.privacyFragment, bundle)
                 }
                 else -> {
                     navController.navigate(R.id.homeFragment2)
@@ -115,7 +118,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnDrawerToggleListener {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val navhostfragmentView = findViewById<View>(R.id.nav_host_fragment)
             when (destination.id) {
-                R.id.loginPage, R.id.signupPage, R.id.topupPage, R.id.detailsFragment, R.id.withdrawFragment, R.id.detailHistoryFragment -> {
+                R.id.loginPage, R.id.signupPage, R.id.topupPage, R.id.detailsFragment, R.id.withdrawFragment, R.id.detailHistoryFragment, R.id.privacyFragment -> {
 
                     // LOCK DRAWERLAYOUT
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)

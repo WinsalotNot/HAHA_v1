@@ -7,11 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,6 +16,7 @@ import com.example.HAHA.Data.PostingData
 import java.text.NumberFormat
 import java.util.Locale
 import com.bumptech.glide.Glide
+import com.example.HAHA.Data.ConfirmTransfer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,6 +26,7 @@ class DetailHistoryFragment : Fragment() {
     private lateinit var backButton: ImageButton
     private lateinit var finishButton: Button
     private lateinit var activity: MainActivity
+    private lateinit var confirmTransfer: ConfirmTransfer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,45 +55,7 @@ class DetailHistoryFragment : Fragment() {
         if (postingData != null) {
             if (!postingData.isCompleted) {
                 finishButton.setOnClickListener {
-                    // Show loading and make the transfer API call
-                    activity.showLoading()
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        try {
-                            val response =
-                                RetrofitInstance.apiService.transferConfirm(userId = userId)
-                            if (response.isSuccessful && response.body()?.success == true) {
-                                Log.d("Transfer Confirm", response.message())
-                                withContext(Dispatchers.Main) {
-                                    activity.hideLoading()
-                                    Toast.makeText(
-                                        requireContext(),
-                                        response.body()?.message,
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                    findNavController().navigate(R.id.action_detailHistoryFragment_to_homeFragment2)
-                                    activity.bottomnavpicker(R.id.homeFragment2)
-                                }
-                            } else {
-                                withContext(Dispatchers.Main) {
-                                    activity.hideLoading()
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Transfer Failed!",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                            }
-                        } catch (e: Exception) {
-                            withContext(Dispatchers.Main) {
-                                activity.hideLoading()
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error: ${e.message}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-                    }
+                    showRatingDialog(userId)
                 }
             } else {
                 finishButton.isClickable = false
@@ -117,7 +78,6 @@ class DetailHistoryFragment : Fragment() {
             val fee: TextView = view.findViewById(R.id.DHfee)
             val totalcost : TextView = view.findViewById(R.id.DHtotalcost)
             val imageView: ImageView = view.findViewById(R.id.DHProfilePic)
-
 
             name.text = postingData.username.trim('"')
             title.text = postingData.title.trim('"')
@@ -143,6 +103,66 @@ class DetailHistoryFragment : Fragment() {
             }
         } else {
             Log.e("DetailsFragment", "No rankingData provided in arguments")
+        }
+    }
+
+    private fun showRatingDialog(userId: Int) {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_rating, null)
+        val ratingBar: RatingBar = dialogView.findViewById(R.id.ratingBar)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Rate Your Experience")
+            .setView(dialogView)
+            .setPositiveButton("OK") { dialog, _ ->
+                val rating = ratingBar.rating.toDouble()
+                dialog.dismiss()
+                launchRequestWithRating(userId, rating)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    private fun launchRequestWithRating(userId: Int, rating: Double) {
+        activity.showLoading()
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                confirmTransfer = ConfirmTransfer(userId, rating)
+                val response = RetrofitInstance.apiService.transferConfirm(confirmTransfer)
+                if (response.isSuccessful && response.body()?.success == true) {
+                    Log.d("Transfer Confirm", response.message())
+                    withContext(Dispatchers.Main) {
+                        activity.hideLoading()
+                        Toast.makeText(
+                            requireContext(),
+                            response.body()?.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                        findNavController().navigate(R.id.action_detailHistoryFragment_to_homeFragment2)
+                        activity.bottomnavpicker(R.id.homeFragment2)
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        activity.hideLoading()
+                        Toast.makeText(
+                            requireContext(),
+                            "Transfer Failed!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    activity.hideLoading()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
     }
 }

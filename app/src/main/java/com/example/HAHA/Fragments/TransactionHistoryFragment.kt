@@ -3,10 +3,13 @@ package com.example.HAHA.Fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -22,10 +25,12 @@ import com.example.HAHA.SharedRecyclerViewModel
 class TransactionHistoryFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var sharedRecyclerViewModel: SharedRecyclerViewModel
+    private val sharedRecyclerViewModel: SharedRecyclerViewModel by activityViewModels()
     private lateinit var recyclerAdapter: RecyclerAdapter
-    private lateinit var sharedPreferences: SharedPreferences // Make sharedPreferences a global variable
-    private var userid: Int = 0 // Global userId
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var searchHistory: EditText
+    private var searchQuery: String = ""
+    private var userid: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +38,9 @@ class TransactionHistoryFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_transaction_history, container, false)
 
-        // Initialize ViewModel
-        sharedRecyclerViewModel = activityViewModels<SharedRecyclerViewModel>().value
-
-        // Set up RecyclerView
+        // Initialize search bar and RecyclerView
+        searchHistory = view.findViewById(R.id.searchHistory)
         recyclerView = view.findViewById(R.id.recyclerView)
-        // Initialize RecyclerAdapter for "transactionhistory" design
         recyclerAdapter = RecyclerAdapter("transactionhistory")
 
         return view
@@ -49,36 +51,57 @@ class TransactionHistoryFragment : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         userid = sharedPreferences.getInt("USER_ID_INT", 0)
 
-        // Set up RecyclerView layout manager
+        // Set up RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = recyclerAdapter
 
-        // Observe data from ViewModel
+        // Observe history list from ViewModel
         sharedRecyclerViewModel.historyList.observe(viewLifecycleOwner, Observer { historyList ->
-            // Call applyFilters with the list (no filtering logic for now)
             applyFilters(historyList)
         })
 
-        sharedRecyclerViewModel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
-                (requireActivity() as MainActivity).showLoading()
-            } else {
-                (requireActivity() as MainActivity).hideLoading()
-            }
+        // Observe loading state
+        sharedRecyclerViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            val activity = requireActivity() as MainActivity
+            if (isLoading) activity.showLoading() else activity.hideLoading()
         }
 
+        // Add search functionality
+        searchHistory.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                searchQuery = s.toString().lowercase()
+                sharedRecyclerViewModel.historyList.value?.let { applyFilters(it) }
+            }
+        })
     }
 
-    // Handle data and update the adapter (without filtering)
+    // Apply filters to the history list and update the RecyclerAdapter
     private fun applyFilters(historyList: List<PostingData>) {
+        Log.d("applyFilters", "Applying filters with query: '$searchQuery'")
+        Log.d("applyFilters", "Initial list size: ${historyList.size}")
 
-        // Separate items based on the conditions
         val boughtNotCompleted = historyList.filter { it.isBought && !it.isCompleted }
         val completedItems = historyList.filter { it.isCompleted }
 
-        // Combine the lists with the desired order
         val sortedList = boughtNotCompleted + completedItems
-        recyclerAdapter.submitList(sortedList)
+
+        val isFilteringActive = searchQuery.isNotEmpty()
+
+        val filteredList = if (isFilteringActive) {
+            sortedList.filter { history ->
+                history.username?.contains(searchQuery, ignoreCase = true) == true ||
+                        history.title?.contains(searchQuery, ignoreCase = true) == true ||
+                        history.shortDesc?.contains(searchQuery, ignoreCase = true) == true
+            }.sortedByDescending { it.rating }
+        } else {
+            sortedList
+        }
+
+        Log.d("applyFilters", "Filtered list size: ${filteredList.size}")
+        recyclerAdapter.submitList(filteredList)
+        recyclerAdapter.notifyDataSetChanged()
 
         // Add item click listener
         recyclerAdapter.onItemClick = { rankingItem ->
@@ -94,6 +117,6 @@ class TransactionHistoryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("TransactionHistoryFragment", "onResume called: Loading Data...")
-        sharedRecyclerViewModel.loadDataHistory(userid = userid) // Replace with actual user ID
+        sharedRecyclerViewModel.loadDataHistory(userid = userid)
     }
 }

@@ -162,8 +162,6 @@ class jobPosting : Fragment() {
                         title = service,
                         description = desc,
                         rank = inputRank,
-                        rating = 0.0f,
-                        review = 0,
                         addr = address,
                         fee = fee,
                         cat = category,

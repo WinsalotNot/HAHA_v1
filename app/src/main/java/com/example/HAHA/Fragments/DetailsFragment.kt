@@ -56,7 +56,6 @@ class DetailsFragment : Fragment() {
             val description: TextView = view.findViewById(R.id.Ddesc)
             val rank: TextView = view.findViewById(R.id.Drank)
             val rating: TextView = view.findViewById(R.id.Drating)
-            val review: TextView = view.findViewById(R.id.Dreviews)
             val addr: TextView = view.findViewById(R.id.Daddr)
             val fee: TextView = view.findViewById(R.id.Dfee)
             val imageView: ImageView = view.findViewById(R.id.DProfilePic) // Assuming this is your ImageView
@@ -67,7 +66,6 @@ class DetailsFragment : Fragment() {
             description.text = postingData.description
             rank.text = postingData.rank.trim('"')
             rating.text = postingData.rating.toString()  // Convert Float to String
-            review.text = postingData.review.toString()  // Convert Int to String
             addr.text = postingData.addr.trim('"')
             fee.text = NumberFormat.getNumberInstance(Locale("in", "ID")).format(postingData.fee)
 

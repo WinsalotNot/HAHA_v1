@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/explorePage">
+    app:startDestination="@id/loginPage">
     <fragment
         android:id="@+id/homeFragment2"
         android:name="com.example.HAHA.Fragments.HomeFragment"
@@ -102,8 +102,8 @@
         android:label="fragment_signup_page"
         tools:layout="@layout/fragment_signup_page" >
         <action
-            android:id="@+id/action_signupPage_to_loginPage"
-            app:destination="@id/loginPage"
+            android:id="@+id/action_signupPage_to_privacyFragment"
+            app:destination="@id/privacyFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -196,5 +196,13 @@
         android:id="@+id/privacyFragment"
         android:name="com.example.HAHA.PrivacyFragment"
         android:label="fragment_privacy"
-        tools:layout="@layout/fragment_privacy" />
+        tools:layout="@layout/fragment_privacy" >
+        <action
+            android:id="@+id/action_privacyFragment_to_loginPage"
+            app:destination="@id/loginPage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
 </navigation>

@@ -43,6 +43,7 @@ class LoginFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_login_page, container, false)
         (requireActivity() as MainActivity).hideLoading()
 
+        findNavController().popBackStack(R.id.loginPage, false)
         // Initialize views
         emailEditText = view.findViewById(R.id.emailInput)
         passwordEditText = view.findViewById(R.id.passwordInput)

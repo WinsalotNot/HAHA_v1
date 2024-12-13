@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.HAHA.Data.RegisterData
 import com.example.HAHA.Data.User
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,7 @@ class SignupFragment : Fragment() {
 
     private lateinit var apiService: ApiService
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var registerData: RegisterData
 
     // The 5-minute timeout value (in milliseconds)
     private val timeoutDuration = TimeUnit.MINUTES.toMillis(5)
@@ -145,8 +147,12 @@ class SignupFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    // Call your Retrofit-based registerUser method
-                    registerUser(email, password, name, address)
+                    registerData = RegisterData(email, password, name, address)
+
+                    val bundle = Bundle().apply {
+                        putParcelable("registerData", registerData)
+                    }
+                    findNavController().navigate(R.id.action_signupPage_to_privacyFragment, bundle)
 
                     // Clean up temporary Firebase account
                     tempUser.delete()
@@ -172,26 +178,4 @@ class SignupFragment : Fragment() {
         }
     }
 
-    private fun registerUser(email: String, password: String, name: String, address: String) {
-        val user = User(email, password, name, address)
-
-        // Launch a coroutine to make the API call
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val response = RetrofitInstance.apiService.registerUser(user)
-
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(context, "User registered successfully!", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_signupPage_to_loginPage)
-                    } else {
-                        Toast.makeText(context, "Registration failed: ${response.message()}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("RegistrationError", "An error occurred: ${e.message}", e)
-                Toast.makeText(context, "Error: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 }

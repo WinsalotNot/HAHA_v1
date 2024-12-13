@@ -37,6 +37,7 @@
                 android:src="@drawable/baseline_search_24" />
 
             <EditText
+                android:id="@+id/searchHistory"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

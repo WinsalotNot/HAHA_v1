@@ -3,6 +3,7 @@ package com.example.HAHA
 import com.example.HAHA.Data.ApiResponse
 import com.example.HAHA.Data.AvailabilityResponse
 import com.example.HAHA.Data.ChangePassReq
+import com.example.HAHA.Data.ConfirmTransfer
 import com.example.HAHA.Data.PaymentRequest
 import com.example.HAHA.Data.PayoutData
 import com.example.HAHA.Data.PostingData
@@ -54,8 +55,6 @@ interface ApiService {
         @Part("title") title: String,
         @Part("description") description: String,
         @Part("rank") rank: String,
-        @Part("rating") rating: Float,
-        @Part("review") review: Int,
         @Part("addr") addr: String,
         @Part("fee") fee: Float,
         @Part("cat") cat: String,
@@ -80,8 +79,8 @@ interface ApiService {
     @POST("/api/posting/purchaseService")
     suspend fun purchaseService(@Body purchaseData: PurchaseData): Response<ApiResponse>
 
-    @POST("/api/{userId}transferConfirm")
-    suspend fun transferConfirm(@Path("userId") userId: Int): Response<ApiResponse>
+    @POST("/api/transferConfirm")
+    suspend fun transferConfirm(@Body confirmTransfer: ConfirmTransfer): Response<ApiResponse>
 
     @GET("/api/rank/getAllUserByRank")
     suspend fun getAllUserByRank(): Response<List<RankResponse>>
